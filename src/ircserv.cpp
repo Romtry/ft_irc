@@ -6,7 +6,7 @@
 
 // ? init du serv
 ircserv::ircserv(const unsigned int port, const std::string &password)
-	:	_port(port), _password(password), _sockets(0)
+	:	_port(port), _password(password), _socket(0)
 {
 	// ? crée un canal de communication
 	// ? AF_INET defini que l'ip est IPv4

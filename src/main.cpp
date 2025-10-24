@@ -18,10 +18,21 @@ int	main(const int argc, const char **argv)
 		return (1);
 	}
 	std::string	pswd = argv[2];
-	if (sizeof(pswd) > 15)
+	if (pswd.size() > 15)
 	{
 		std::cout << "Password too long, 15char max !" << std::endl;
+		return (1);
 	}
 
-	ircserv	test(port, argv[2]);
+	try
+	{
+		ircserv	test(port, pswd);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
+
+	
 }

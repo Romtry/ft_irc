@@ -24,5 +24,12 @@ int	main(const int argc, const char **argv)
 		return (1);
 	}
 
-	ircserv	test(port, pswd);
+	try
+	{
+		ircserv	test(port, pswd);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 }

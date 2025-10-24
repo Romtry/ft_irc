@@ -2,7 +2,7 @@
 // Created by rothiery on 10/22/25.
 //
 
-#include "ircserv.hpp"
+#include "../includes/ircserv.hpp"
 
 // ? init du serv
 ircserv::ircserv(const unsigned int port, const std::string &password)
@@ -41,17 +41,6 @@ ircserv::ircserv(const unsigned int port, const std::string &password)
 // ? accepte les clients / affiche les messages
 void ircserv::Start()
 {
-	// ? maintenant en attente qu'un client se connect crée un socket par client (les clients ont leur propre socket et ces 2 sockets font le lien)
-	// ! ajouter un poll ? pour attendre les nouveaux clients
-	int clientSocket = accept(_socket[0].fd, NULL, NULL);
-
-	pollfd clientfds;
-
-	clientfds.fd = clientSocket;
-	clientfds.events = POLLIN;
-	clientfds.revents = 0;
-	_socket.push_back(clientfds);
-
 	char buffer[1024] = {0};
 	while (true)
 	{
@@ -69,9 +58,7 @@ void ircserv::Start()
 					AddClient();
 				// ? si index du socket != 0 alors c'est un message d'un client
 				else
-				{
 
-				}
 			}
 		}
 		// recv(clientSocket, buffer, sizeof(buffer), 0);
@@ -80,7 +67,18 @@ void ircserv::Start()
 	std::cout << "Server end" << std::endl;
 }
 
+// ? ajoute un client aux clients
+// ! ajouter message de bienvenue / messages d'arrivé
 void ircserv::AddClient()
 {
-	
+	int clientSocket = accept(_socket[0].fd, NULL, NULL);
+
+	pollfd clientfds;
+
+	clientfds.fd = clientSocket;
+	clientfds.events = POLLIN;
+	clientfds.revents = 0;
+	_socket.push_back(clientfds);
 }
+
+// ?

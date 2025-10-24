@@ -2,7 +2,7 @@
 // Created by rothiery on 10/22/25.
 //
 
-#include "ircserv.hpp"
+#include "../includes/ircserv.hpp"
 
 int	main(const int argc, const char **argv)
 {

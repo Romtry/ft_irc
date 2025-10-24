@@ -3,4 +3,4 @@ project(ft_irc)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(ft_irc main.cpp ircserv.cpp)
+add_executable(ft_irc src/*.cpp)

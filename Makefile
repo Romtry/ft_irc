@@ -7,7 +7,7 @@ SRC=	main.cpp ircserv.cpp\
 OFILES= ${SRC:%.cpp=obj/%.o}
 
 CC= 	c++ -Wextra -Wall -std=c++98
-CFLAGS= -g3
+CFLAGS= -g3 -Iincludes
 RESET = \033[0m
 GREEN = \033[38;5;85m
 

@@ -77,11 +77,12 @@ void ircserv::Message(unsigned int i)
 		_socket.erase(_socket.begin() + i);
 		return;
 	}
-	for (unsigned int i2 = 1; i2 < _socket.size(); ++i2)
-	{
-		if (i2 == i)
-			continue;
-		send(_socket[i2].fd, buffer, size, 0);
-	}
-	std::cout << "Message from client: " << buffer;
+	ParseCommand(i, buffer);
 }
+
+// for (unsigned int i2 = 1; i2 < _socket.size(); ++i2)
+// {
+// 	if (i2 == i)
+// 		continue;
+// 	send(_socket[i2].fd, buffer, size, 0);
+// }

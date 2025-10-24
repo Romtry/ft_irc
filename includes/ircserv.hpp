@@ -20,9 +20,11 @@ class ircserv
 		void Start();
 		void AddClient();
 		void Message(unsigned int i);
+		void ParseCommand(unsigned int i, char *buffer);
 
 	private:
 		const unsigned int			_port;
 		const std::string			_password;
 		std::vector<pollfd>			_socket;
+		std::vector<client>
 };

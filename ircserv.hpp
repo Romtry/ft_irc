@@ -9,13 +9,6 @@
 #include <netinet/in.h>
 // #include <sys/socket.h>
 
-// struct pollfd
-// {
-// 	int   fd;       // le descripteur de fichier
-// 	short events;   // événements que l'on veut surveiller (lecture, écriture, etc.)
-// 	short revents;  // événements réellement survenus (rempli par poll)
-// };
-
 class ircserv
 {
 	public:

@@ -29,6 +29,8 @@ ircserv::ircserv(const unsigned int port, const std::string &password)
 
 	// ? maintenant en attente qu'un client se connect crée une socket par client (les clients ont leur propre socket et ces 2 sockets font le lien)
 	// ! ajouter un poll ? pour attendre les nouveaux clients
+	pollfd fds;
+	fds.fd
 	int clientSocket = accept(serverSocket, NULL, NULL);
 
 	char buffer[1024] = {0};

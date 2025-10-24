@@ -62,6 +62,7 @@ void ircserv::AddClient()
 	clientfds.events = POLLIN;
 	clientfds.revents = 0;
 	_socket.push_back(clientfds);
+	_clients.push_back(client(clientSocket));
 }
 
 void ircserv::Message(unsigned int i)
@@ -75,7 +76,8 @@ void ircserv::Message(unsigned int i)
 		_socket.erase(_socket.begin() + i);
 		return;
 	}
-	ParseCommand(i, buffer);
+	std::string tmp = buffer;
+	ParseCommand(i, tmp);
 }
 
 // for (unsigned int i2 = 1; i2 < _socket.size(); ++i2)

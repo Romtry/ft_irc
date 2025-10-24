@@ -11,6 +11,8 @@
 #include <netinet/in.h>
 #include <cstdlib>
 #include <unistd.h>
+#include "client.hpp"
+
 // #include <sys/socket.h>
 
 class ircserv
@@ -20,11 +22,11 @@ class ircserv
 		void Start();
 		void AddClient();
 		void Message(unsigned int i);
-		void ParseCommand(unsigned int i, char *buffer);
+		void ParseCommand(unsigned int i, std::string buffer);
 
 	private:
 		const unsigned int			_port;
 		const std::string			_password;
 		std::vector<pollfd>			_socket;
-		std::vector<client>
+		std::vector<client>			_clients;
 };

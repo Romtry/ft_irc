@@ -2,11 +2,25 @@
 // Created by rothiery on 10/24/25.
 //
 
+#include <algorithm>
+
 #include "../includes/ircserv.hpp"
 
-void ircserv::ParseCommand(unsigned int i, char *buffer)
+
+void ircserv::ParseCommand(unsigned int i, std::string &buffer)
 {
-	std::string	*cmds;
-
-
+	for (unsigned int index = 0; buffer[index] == ' '; ++index)
+		buffer.erase(0, 1);
+	std::string tmp = buffer.substr(0, buffer.find(' '));
+	if (tmp == "CAP")
+		return;
+	if (tmp == "PASS")
+	{
+		buffer.erase(0, buffer.find(' '));
+		for (unsigned int index = 0; buffer[index] == ' '; ++index)
+			buffer.erase(0, 1);
+		tmp = buffer.substr(0, buffer.find(' '));
+		if (tmp == _password)
+			_clients[i]
+	}
 }

@@ -1,34 +1,45 @@
-NAME=	ircserv
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/10/24 15:09:31 by rdedola           #+#    #+#              #
+#    Updated: 2025/10/24 15:10:12 by rdedola          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-VPATH= src/
+# Program Executable
+EXE			:=	easyfind
 
-SRC=	main.cpp ircserv.cpp\
+# Files
+SRC			:=	src/main.cpp \
 
-OFILES= ${SRC:%.cpp=obj/%.o}
+# Variables
+CC			:=	c++
+CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -Iincludes -fsanitize=address -g
 
-CC= 	c++ -Wextra -Wall -std=c++98
-CFLAGS= -g3 -Iincludes
-RESET = \033[0m
-GREEN = \033[38;5;85m
+# Colors
+DEF_COLOR	= \033[0;39m
+COLOR		= \033[1;32m
 
-all:	${NAME}
+# Makefile
+all			:	${EXE}
 
-${NAME}:		${OFILES}
-	   @${CC} ${CFLAGS} ${OFILES} -o ${NAME}
-	@echo "${GREEN}[✓] - ${_GREEN}${NAME}${GREEN} Successfully Compiled!${RESET}"
+${EXE}		:	${SRC}
+				${CC} ${CFLAGS} ${SRC} -o ${EXE}
+				@echo "${COLOR}╔══════════════════════════╗${DEF_COLOR}"
+				@echo "${COLOR}║    IRC Server compiled   ║${DEF_COLOR}"
+				@echo "${COLOR}╚══════════════════════════╝${DEF_COLOR}"
 
-obj/%.o:%.cpp
-	@mkdir -p obj/$(dir $<)
-	@${CC} ${CFLAGS} -c $< -o $@
 
-clean:
-	@rm -rf obj
-	@rm -f ${NAME}.log
+clean		:
+				rm -rf ${EXE}
+				@echo "${COLOR}╔══════════════════════════╗${DEF_COLOR}"
+				@echo "${COLOR}║    IRC Server cleaned!   ║${DEF_COLOR}"
+				@echo "${COLOR}╚══════════════════════════╝${DEF_COLOR}"
 
-fclean:	clean
-	@rm -f ${NAME}
-	@${RM} ${NAME}
+re			:	clean all
 
-re:	fclean all
-
-.PHONY:		all bonus clean fclean re
+.PHONY		:	all clean re

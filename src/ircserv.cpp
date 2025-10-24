@@ -42,6 +42,8 @@ ircserv::ircserv(const unsigned int port, const std::string &password)
 }
 
 // ? accepte les clients / affiche les messages
+// ! ajouter password
+// ! hexchat working
 void ircserv::Start()
 {
 	while (true)
@@ -87,12 +89,19 @@ void ircserv::AddClient()
 void ircserv::Message(unsigned int i)
 {
 	char buffer[1024] = {0};
-	if (recv(_socket[i].fd, buffer, sizeof(buffer), 0) == 0)
+	unsigned int size = recv(_socket[i].fd, buffer, sizeof(buffer), 0);
+	if (size == 0)
 	{
 		std::cout << "User disconnected" << std::endl;
 		close (_socket[i].fd);
 		_socket.erase(_socket.begin() + i);
 		return;
+	}
+	for (unsigned int i2 = 1; i2 < _socket.size(); ++i2)
+	{
+		if (i2 == i)
+			continue;
+		send(_socket[i2].fd, buffer, size, 0);
 	}
 	std::cout << "Message from client: " << buffer << std::endl;
 }

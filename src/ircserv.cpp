@@ -20,16 +20,10 @@ ircserv::ircserv(const unsigned int port, const std::string &password)
 	// ? accepte toutes les ip
 	serverAddress.sin_addr.s_addr = INADDR_ANY;
 
-<<<<<<< Updated upstream
-	// ? envoie le serv "en ligne" -1 si le port deja occupé 0 si le serv a bien loué l'ip / port
-	// ! ajouter message erreur en cas de ip / port deja utilisés
-	bind(serverSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress));
-=======
 	// ? envoie le serv "en ligne" -1 si ip deja occupé 0 si le serv a bien loué l'ip / port
 	if (!bind(serverSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)));
 		throw std::runtime_error("Port already used");
 
->>>>>>> Stashed changes
 
 	// ? ajoute la capaciter à recevoir des "demandes" (des clients)
 	listen(serverSocket, 15);

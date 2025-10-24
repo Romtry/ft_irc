@@ -11,8 +11,8 @@ int	main(const int argc, const char **argv)
 		std::cout << "./ircserv <port> <password>" << std::endl;
 		return (1);
 	}
-	unsigned short	port = atoi(argv[1]);
-	if (!isalnum(port) || port > 64000)
+	unsigned short	port = std::atoi(argv[1]);
+	if (port > 64000)
 	{
 		std::cout << "Invalid port" << std::endl;
 		return (1);
@@ -27,6 +27,7 @@ int	main(const int argc, const char **argv)
 	try
 	{
 		ircserv	test(port, pswd);
+		test.Start();
 	}
 	catch(const std::exception& e)
 	{

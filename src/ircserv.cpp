@@ -21,7 +21,7 @@ ircserv::ircserv(const unsigned int port, const std::string &password)
 	serverAddress.sin_addr.s_addr = INADDR_ANY;
 
 	// ? envoie le serv "en ligne" -1 si ip deja occupé 0 si le serv a bien loué l'ip / port
-	if (!bind(serverSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)))
+	if (bind(serverSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)) == -1)
 	{
 		throw std::runtime_error("Port already used");
 	}
@@ -44,11 +44,10 @@ ircserv::ircserv(const unsigned int port, const std::string &password)
 // ? accepte les clients / affiche les messages
 void ircserv::Start()
 {
-	char buffer[1024] = {0};
 	while (true)
 	{
 		// ? stop jusqu'à ce qu'un message est recu (server comme client) met le revent du socket a 1
-		if (!poll(_socket.data(), _socket.size(), 0))
+		if (poll(_socket.data(), _socket.size(), 0) == -1)
 			throw std::runtime_error("Poll error");
 		// ? parcourt les sockets
 		for (unsigned int i = 0; i < _socket.size(); ++i)
@@ -62,7 +61,7 @@ void ircserv::Start()
 				// ? si index du socket != 0 alors c'est un message d'un client
 				else
 				{
-					Message();
+					Message(i);
 				}
 			}
 		}
@@ -84,9 +83,16 @@ void ircserv::AddClient()
 	_socket.push_back(clientfds);
 }
 
-// ?
+// ? envoie les messages des clients / supprime les clients qui sont MORTS
 void ircserv::Message(unsigned int i)
 {
-	recv(clientSocket, buffer, sizeof(buffer), 0);
+	char buffer[1024] = {0};
+	if (recv(_socket[i].fd, buffer, sizeof(buffer), 0) == 0)
+	{
+		std::cout << "User disconnected" << std::endl;
+		close (_socket[i].fd);
+		_socket.erase(_socket.begin() + i);
+		return;
+	}
 	std::cout << "Message from client: " << buffer << std::endl;
 }

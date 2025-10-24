@@ -1,7 +1,8 @@
 NAME=	ircserv
 
-SRC=	main.cpp ircserv.cpp\
+VPATH= src/
 
+SRC=	main.cpp ircserv.cpp\
 
 OFILES= ${SRC:%.cpp=obj/%.o}
 

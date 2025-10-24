@@ -9,6 +9,8 @@
 #include <poll.h>
 #include <exception>
 #include <netinet/in.h>
+#include <cstdlib>
+#include <unistd.h>
 // #include <sys/socket.h>
 
 class ircserv

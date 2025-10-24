@@ -6,7 +6,7 @@
 
 // ? init du serv
 ircserv::ircserv(const unsigned int port, const std::string &password)
-	:	_port(port), _password(password), _sockets(0)
+	:	_port(port), _password(password), _socket(0)
 {
 	// ? crée un canal de communication
 	// ? AF_INET defini que l'ip est IPv4
@@ -21,8 +21,10 @@ ircserv::ircserv(const unsigned int port, const std::string &password)
 	serverAddress.sin_addr.s_addr = INADDR_ANY;
 
 	// ? envoie le serv "en ligne" -1 si ip deja occupé 0 si le serv a bien loué l'ip / port
-	if (!bind(serverSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)));
+	if (!bind(serverSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress)))
+	{
 		throw std::runtime_error("Port already used");
+	}
 
 
 	// ? ajoute la capaciter à recevoir des "demandes" (des clients)
@@ -59,11 +61,11 @@ void ircserv::Start()
 					AddClient();
 				// ? si index du socket != 0 alors c'est un message d'un client
 				else
-
+				{
+					Message();
+				}
 			}
 		}
-		// recv(clientSocket, buffer, sizeof(buffer), 0);
-		// std::cout << "Message from client: " << buffer << std::endl;
 	}
 	std::cout << "Server end" << std::endl;
 }
@@ -83,3 +85,8 @@ void ircserv::AddClient()
 }
 
 // ?
+void ircserv::Message(unsigned int i)
+{
+	recv(clientSocket, buffer, sizeof(buffer), 0);
+	std::cout << "Message from client: " << buffer << std::endl;
+}

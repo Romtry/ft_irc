@@ -17,7 +17,7 @@ class ircserv
 		ircserv(const unsigned int port, const std::string &password);
 		void Start();
 		void AddClient();
-		void Message();
+		void Message(unsigned int i);
 
 	private:
 		const unsigned int			_port;

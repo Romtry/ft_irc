@@ -44,9 +44,7 @@ void ircserv::Start()
 				if (i == 0)
 					AddClient();
 				else
-				{
 					Message(i);
-				}
 			}
 		}
 	}

@@ -32,4 +32,6 @@ class client
 		void	setNick(const std::string &nick) {_nick = nick;}
 		void	setUser(const std::string &user) {_user = user;}
 		void	setPass(bool pass) {_pass = pass;}
+
+		void	sendMessage(const std::string &message);
 };

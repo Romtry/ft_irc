@@ -4,6 +4,7 @@
 
 #include <algorithm>
 
+#include "../includes/defines.hpp"
 #include "../includes/ircserv.hpp"
 
 
@@ -21,6 +22,9 @@ void ircserv::ParseCommand(unsigned int i, std::string &buffer)
 			buffer.erase(0, 1);
 		tmp = buffer.substr(0, buffer.find(' '));
 		if (tmp == _password)
-			_clients[i]
+			_clients[i].setPass(true);
+		else
+			_clients[i].sendMessage(ERR_PASSWDMISMATCH);
+		return;
 	}
 }

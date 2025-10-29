@@ -33,6 +33,12 @@ IRCServ::IRCServ(const unsigned int port, const std::string &password)
 // ! hexchat working
 void IRCServ::Start()
 {
+	std::cout << "\e[33m██╗██████╗  ██████╗    ███████╗███████╗██████╗ ██╗   ██╗" RESET << std::endl;
+	std::cout << "\e[33m██║██╔══██╗██╔════╝    ██╔════╝██╔════╝██╔══██╗██║   ██║" RESET << std::endl;
+	std::cout << "\e[33m██║██████╔╝██║         ███████╗█████╗  ██████╔╝██║   ██║" RESET << std::endl;
+	std::cout << "\e[33m██║██╔══██╗██║         ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝" RESET << std::endl;
+	std::cout << "\e[33m██║██║  ██║╚██████╗    ███████║███████╗██║  ██║ ╚████╔╝ " RESET << std::endl;
+	std::cout << "\e[33m╚═╝╚═╝  ╚═╝ ╚═════╝    ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  " RESET << std::endl;
 	while (true)
 	{
 		if (poll(_socket.data(), _socket.size(), 0) == -1)
@@ -79,4 +85,3 @@ void IRCServ::Message(const unsigned int i)
 	std::string tmp = buffer;
 	parseCommand(i, tmp);
 }
-

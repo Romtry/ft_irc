@@ -15,9 +15,10 @@ void IRCServ::CMDnick(unsigned int clientindex, std::string &buffer)
 	{
 		if (tmp == _clients[clientindex]->getNick())
 		{
-			std::cout << "nickname already use" << std::endl;
+			
 			return;
 		}
 	}
+
 	_clients[clientindex]->setNick(tmp);
 }

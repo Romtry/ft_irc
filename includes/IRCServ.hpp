@@ -15,10 +15,10 @@
 
 // #include <sys/socket.h>
 
-class ircserv
+class IRCServ
 {
 	public:
-		ircserv(const unsigned int port, const std::string &password);
+		IRCServ(const unsigned int port, const std::string &password);
 		void Start();
 		void AddClient();
 		void Message(unsigned int i);

@@ -5,10 +5,10 @@
 #include <algorithm>
 
 #include "../includes/defines.hpp"
-#include "../includes/ircserv.hpp"
+#include "../includes/IRCServ.hpp"
 
 
-void ircserv::ParseCommand(unsigned int i, std::string &buffer)
+void IRCServ::ParseCommand(unsigned int i, std::string &buffer)
 {
 	for (unsigned int index = 0; buffer[index] == ' '; ++index)
 		buffer.erase(0, 1);

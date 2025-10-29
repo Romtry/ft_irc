@@ -26,7 +26,7 @@ int	main(const int argc, const char **argv)
 
 	try
 	{
-		ircserv	test(port, pswd);
+		IRCServ	test(port, pswd);
 		test.Start();
 	}
 	catch(const std::exception& e)

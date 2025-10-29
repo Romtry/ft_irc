@@ -1,0 +1,29 @@
+NICK		// NICK <nickname>
+			// Changer ton nickname (il faut que ce soit unique, moins de 9, premier char doit etre une lettre MAJ\min, tout le reste peut etre isalmnum, -, [, ], \, `, ^, {, })
+
+USER		// USER <username> 0 * : <realname>
+			// (Pas besoin d'espaces entre tout)
+
+PASS		// PASS <password>
+			// Set le mdp (Non modifiable par la suite)
+
+JOIN		// JOIN <#channel> [<key>]
+			// Si le chan n'existe pas ca le cree, si il existe tu essayes de rejoindre (tout attache), key = mdp si il y en a un.
+
+TOPIC		// TOPIC <#channel> [<topic>]
+			// Change le titre du chan si topic en argument, si juste <topic> donne le titre present
+
+KICK		// KICK <#channel> <nickname> [<commentaire>]
+			// Kick le mec
+
+INVITE		// INVITE <nickname> <#channel>
+			// Invite le mec dans le chan, si channel en MODE invite
+
+PART		// PART <#channel>
+			// Quitte le chan
+
+PRIVMSG		// PRIVMSG <nickame> (ou) <#channel> <message>
+			// Envoie dans un channel ou a un mec
+			
+MODE		// MODE <#channel> <+(ou)-(lettre)> [<args>]
+			// (lettre) = i(invite), l(limit), o(mettre ou retirer admin), t(si TOPIC public ou adminOnly), k(Set ou enleve un mdp de chan)

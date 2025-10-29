@@ -17,6 +17,8 @@ void IRCServ::parseCommand(unsigned int clientindex, std::string &buffer)
 		IRCServ::CMDpass(clientindex, buffer);
 	else if (tmp == "NICK")
 		IRCServ::CMDnick(clientindex, buffer);
+	else if (tmp == "USER")
+		IRCServ::CMDuser(clientindex, buffer);
 	else if (tmp != "CAP")
 	{
 		std::cout << "Wrong command" << std::endl;

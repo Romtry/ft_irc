@@ -26,8 +26,9 @@ class IRCServ
 		void Message(unsigned int i);
 
 		void parseCommand(unsigned int i, std::string &buffer);
-		void CMDpass(unsigned int ci, std::string &buffer);
+		void CMDpass(unsigned int clientindex, std::string &buffer);
 		void CMDnick(unsigned int clientindex, std::string &buffer);
+		void CMDuser(unsigned int clientindex, std::string &buffer);
 
 	private:
 		const unsigned int			_port;

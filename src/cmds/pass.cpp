@@ -7,7 +7,7 @@
 
 void IRCServ::CMDpass(unsigned int clientindex, std::string &buffer)
 {
-	buffer.erase(0, buffer.find(' '));
+	// buffer.erase(0, buffer.find(' '));
 	for (unsigned int index = 0; buffer[index] == ' '; ++index)
 		buffer.erase(0, 1);
 	const std::string tmp = buffer.substr(0, buffer.find(' '));

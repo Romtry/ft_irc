@@ -8,7 +8,7 @@
 #include "../../includes/ircserv.hpp"
 
 
-void ircserv::ParseCommand(unsigned int clientindex, std::string &buffer)
+void ircserv::parseCommand(unsigned int clientindex, std::string &buffer)
 {
 	for (unsigned int index = 0; buffer[index] == ' '; ++index)
 		buffer.erase(0, 1);

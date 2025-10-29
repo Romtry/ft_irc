@@ -77,6 +77,6 @@ void ircserv::Message(const unsigned int i)
 		return;
 	}
 	std::string tmp = buffer;
-	ParseCommand(i, tmp);
+	parseCommand(i, tmp);
 }
 

@@ -17,7 +17,7 @@ EXE			:=	ircserv
 SRC			:=	src/main.cpp \
 				src/ircserv.cpp \
 				src/client.cpp \
-				src/cmds/ParseCommand.cpp \
+				src/cmds/parseCommand.cpp \
 				src/cmds/nick.cpp \
 				src/cmds/pass.cpp \
 

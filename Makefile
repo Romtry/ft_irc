@@ -20,6 +20,7 @@ SRC			:=	src/main.cpp \
 				src/cmds/parseCommand.cpp \
 				src/cmds/nick.cpp \
 				src/cmds/pass.cpp \
+				src/cmds/user.cpp \
 
 
 # Variables

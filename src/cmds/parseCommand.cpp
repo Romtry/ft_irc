@@ -13,6 +13,12 @@ void IRCServ::parseCommand(unsigned int clientindex, std::string &buffer)
 	for (unsigned int index = 0; buffer[index] == ' '; ++index)
 		buffer.erase(0, 1);
 	std::string tmp = buffer.substr(0, buffer.find(' '));
+	buffer.erase(0, buffer.find(' '));
+	buffer.erase(buffer.size() - 1);
+	if (buffer[buffer.size() - 1] == '\r')
+		buffer.erase(buffer.size() - 1);
+	for (unsigned int index = 0; buffer[index] == ' '; ++index)
+		buffer.erase(0, 1);
 	if (tmp == "PASS")
 		IRCServ::CMDpass(clientindex, buffer);
 	else if (tmp == "NICK")

@@ -68,7 +68,8 @@ void IRCServ::AddClient()
 	clientfds.events = POLLIN;
 	clientfds.revents = 0;
 	_socket.push_back(clientfds);
-	_clients.push_back(new Client(clientSocket));
+	Client *temp = new Client(clientSocket);
+	_clients.push_back(temp);
 }
 
 void IRCServ::Message(const unsigned int i)
@@ -83,5 +84,5 @@ void IRCServ::Message(const unsigned int i)
 		return;
 	}
 	std::string tmp = buffer;
-	parseCommand(i, tmp);
+	parseCommand(i - 1, tmp);
 }

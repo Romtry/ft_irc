@@ -15,15 +15,21 @@
 
 void IRCServ::CMDpass(unsigned int clientindex, std::string &buffer)
 {
+	if (_clients[clientindex]->getPass())
+	{
+		_clients[clientindex]->sendMessage(ERR_ALREADYREGISTRED);
+		return;
+	}
 	// buffer.erase(0, buffer.find(' '));
-	for (unsigned int index = 0; buffer[index] == ' '; ++index)
-		buffer.erase(0, 1);
-	const std::string tmp = buffer.substr(0, buffer.find(' '));
-	if (tmp == _password)
+	std::cout << "buffer = [" << buffer << "] psw = [" << _password << "]" << std::endl;
+	if (buffer == _password)
 	{
 		_clients[clientindex]->setPass(true);
 		if (_clients[clientindex]->getNick() != "" && _clients[clientindex]->getUser() != "" )
+		{
+			std::cout << "Password set" << std::endl;
 			_clients[clientindex]->setIsRegister(true);
+		}
 	}
 	else
 		_clients[clientindex]->sendMessage(ERR_PASSWDMISMATCH);

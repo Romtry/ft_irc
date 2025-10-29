@@ -7,15 +7,18 @@
 
 void IRCServ::CMDnick(unsigned int clientindex, std::string &buffer)
 {
+	if (_clients[clientindex]->getNick() != "")
+	{
+		_clients[clientindex]->sendMessage(ERR_ALREADYREGISTRED);
+		return;
+	}
 	// buffer.erase(0, buffer.find(' '));
-	for (unsigned int index = 0; buffer[index] == ' '; ++index)
-		buffer.erase(0, 1);
 	const std::string tmp = buffer.substr(0, buffer.find(' '));
 	for (unsigned int i = 0; i < _clients.size(); ++i)
 	{
 		if (tmp == _clients[clientindex]->getNick())
 		{
-			
+			std::cout << ERR_NICKNAMEINUSE(tmp) << std::endl;
 			return;
 		}
 	}

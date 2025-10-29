@@ -22,7 +22,7 @@ class ircserv
 		void Start();
 		void AddClient();
 		void Message(unsigned int i);
-		void ParseCommand(unsigned int i, std::string buffer);
+		void ParseCommand(unsigned int i, std::string &buffer);
 
 	private:
 		const unsigned int			_port;

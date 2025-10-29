@@ -13,6 +13,7 @@
 #include <unistd.h>
 
 #include "Client.hpp"
+#include "defines.hpp"
 
 class Client;
 
@@ -35,4 +36,5 @@ class IRCServ
 		const std::string			_password;
 		std::vector<pollfd>			_socket;
 		std::vector<Client *>		_clients;
+
 };

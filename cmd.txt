@@ -1,5 +1,7 @@
 NICK		// NICK <nickname>
-			// Changer ton nickname (il faut que ce soit unique, moins de 9, premier char doit etre une lettre MAJ\min, tout le reste peut etre isalmnum, -, [, ], \, `, ^, {, })
+			// Changer ton nickname (il faut que ce soit unique, moins de 9, 
+			premier char doit etre une lettre MAJ\min, tout le reste peut etre isalmnum, 
+			-, [, ], \, `, ^, {, })
 
 USER		// USER <username> 0 * : <realname>
 			// (Pas besoin d'espaces entre tout)

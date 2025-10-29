@@ -12,9 +12,9 @@
 
 #pragma once
 
-#include "ircserv.hpp"
+#include "IRCServ.hpp"
 
-class client
+class Client
 {
 	private:
 		std::string _nick;
@@ -23,8 +23,8 @@ class client
 		int			_clientsSocket;
 		
 	public:
-		client(const int fd) : _nick(""), _user(""), _pass(0), _clientsSocket(fd) {}
-		~client();
+		Client(const int fd) : _nick(""), _user(""), _pass(0), _clientsSocket(fd) {}
+		~Client();
 
 		std::string	getNick() {return (_nick);}
 		std::string getUser() {return (_user);}

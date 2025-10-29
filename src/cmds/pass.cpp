@@ -2,10 +2,10 @@
 // Created by rothiery on 10/29/25.
 //
 
-#include "../../includes/ircserv.hpp"
+#include "../../includes/IRCServ.hpp"
 #include "../../includes/defines.hpp"
 
-void ircserv::CMDpass(unsigned int clientindex, std::string &buffer)
+void IRCServ::CMDpass(unsigned int clientindex, std::string &buffer)
 {
 	buffer.erase(0, buffer.find(' '));
 	for (unsigned int index = 0; buffer[index] == ' '; ++index)

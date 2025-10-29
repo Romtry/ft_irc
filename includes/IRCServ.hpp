@@ -12,9 +12,9 @@
 #include <cstdlib>
 #include <unistd.h>
 
-#include "client.hpp"
+#include "Client.hpp"
 
-class client;
+class Client;
 
 class IRCServ
 {
@@ -33,5 +33,5 @@ class IRCServ
 		const unsigned int			_port;
 		const std::string			_password;
 		std::vector<pollfd>			_socket;
-		std::vector<client *>		_clients;
+		std::vector<Client *>		_clients;
 };

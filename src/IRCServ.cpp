@@ -2,9 +2,9 @@
 // Created by rothiery on 10/22/25.
 //
 
-#include "../includes/ircserv.hpp"
+#include "../includes/IRCServ.hpp"
 
-ircserv::ircserv(const unsigned int port, const std::string &password)
+IRCServ::IRCServ(const unsigned int port, const std::string &password)
 	:	_port(port), _password(password), _socket(0)
 {
 	int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -31,7 +31,7 @@ ircserv::ircserv(const unsigned int port, const std::string &password)
 
 // ! ajouter password
 // ! hexchat working
-void ircserv::Start()
+void IRCServ::Start()
 {
 	while (true)
 	{
@@ -52,7 +52,7 @@ void ircserv::Start()
 }
 
 // ! ajouter message de bienvenue / messages d'arrivé
-void ircserv::AddClient()
+void IRCServ::AddClient()
 {
 	int clientSocket = accept(_socket[0].fd, NULL, NULL);
 
@@ -62,10 +62,10 @@ void ircserv::AddClient()
 	clientfds.events = POLLIN;
 	clientfds.revents = 0;
 	_socket.push_back(clientfds);
-	_clients.push_back(new client(clientSocket));
+	_clients.push_back(new Client(clientSocket));
 }
 
-void ircserv::Message(const unsigned int i)
+void IRCServ::Message(const unsigned int i)
 {
 	char buffer[1024] = {0};
 	unsigned int size = recv(_socket[i].fd, buffer, sizeof(buffer), 0);

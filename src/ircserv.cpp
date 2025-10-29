@@ -62,10 +62,10 @@ void ircserv::AddClient()
 	clientfds.events = POLLIN;
 	clientfds.revents = 0;
 	_socket.push_back(clientfds);
-	_clients.push_back(client(clientSocket));
+	_clients.push_back(new client(clientSocket));
 }
 
-void ircserv::Message(unsigned int i)
+void ircserv::Message(const unsigned int i)
 {
 	char buffer[1024] = {0};
 	unsigned int size = recv(_socket[i].fd, buffer, sizeof(buffer), 0);
@@ -80,9 +80,3 @@ void ircserv::Message(unsigned int i)
 	ParseCommand(i, tmp);
 }
 
-// for (unsigned int i2 = 1; i2 < _socket.size(); ++i2)
-// {
-// 	if (i2 == i)
-// 		continue;
-// 	send(_socket[i2].fd, buffer, size, 0);
-// }

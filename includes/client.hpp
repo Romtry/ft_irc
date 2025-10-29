@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#pragma once
+
 #include "ircserv.hpp"
 
 class client
@@ -21,17 +23,17 @@ class client
 		int			_clientsSocket;
 		
 	public:
-		client(int fd) : _nick(""), _user(""), _pass(0), _clientsSocket(fd) {}
+		client(const int fd) : _nick(""), _user(""), _pass(0), _clientsSocket(fd) {}
 		~client();
 
 		std::string	getNick() {return (_nick);}
 		std::string getUser() {return (_user);}
-		bool		getPass() {return (_pass);}
-		int			getClientSocket() {return (_clientsSocket);}
+		bool		getPass() const {return (_pass);}
+		int			getClientSocket() const {return (_clientsSocket);}
 
 		void	setNick(const std::string &nick) {_nick = nick;}
 		void	setUser(const std::string &user) {_user = user;}
-		void	setPass(bool pass) {_pass = pass;}
+		void	setPass(const bool pass) {_pass = pass;}
 
-		void	sendMessage(const std::string &message);
+		void	sendMessage(const std::string &message) const;
 };

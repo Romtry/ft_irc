@@ -11,13 +11,13 @@ int	main(const int argc, const char **argv)
 		std::cout << "./ircserv <port> <password>" << std::endl;
 		return (1);
 	}
-	unsigned short	port = std::atoi(argv[1]);
+	const unsigned short port = std::atoi(argv[1]);
 	if (port > 64000)
 	{
 		std::cout << "Invalid port" << std::endl;
 		return (1);
 	}
-	std::string	pswd = argv[2];
+	const std::string	pswd = argv[2];
 	if (pswd.size() > 15)
 	{
 		std::cout << "Password too long, 15char max !" << std::endl;

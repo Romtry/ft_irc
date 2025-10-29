@@ -10,4 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "client.hpp"
+#include "../includes/client.hpp"
+
+void client::sendMessage(const std::string &message) const
+{
+	send(_clientsSocket, message.c_str(), message.size(), 0);
+}

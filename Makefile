@@ -11,10 +11,16 @@
 # **************************************************************************** #
 
 # Program Executable
-EXE			:=	easyfind
+EXE			:=	ircserv
 
 # Files
 SRC			:=	src/main.cpp \
+				src/ircserv.cpp \
+				src/client.cpp \
+				src/cmds/ParseCommand.cpp \
+				src/cmds/nick.cpp \
+				src/cmds/pass.cpp \
+
 
 # Variables
 CC			:=	c++
@@ -28,14 +34,14 @@ COLOR		= \033[1;32m
 all			:	${EXE}
 
 ${EXE}		:	${SRC}
-				${CC} ${CFLAGS} ${SRC} -o ${EXE}
+				@${CC} ${CFLAGS} ${SRC} -o ${EXE}
 				@echo "${COLOR}╔══════════════════════════╗${DEF_COLOR}"
 				@echo "${COLOR}║    IRC Server compiled   ║${DEF_COLOR}"
 				@echo "${COLOR}╚══════════════════════════╝${DEF_COLOR}"
 
 
 clean		:
-				rm -rf ${EXE}
+				@rm -rf ${EXE}
 				@echo "${COLOR}╔══════════════════════════╗${DEF_COLOR}"
 				@echo "${COLOR}║    IRC Server cleaned!   ║${DEF_COLOR}"
 				@echo "${COLOR}╚══════════════════════════╝${DEF_COLOR}"

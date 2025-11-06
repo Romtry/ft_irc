@@ -4,7 +4,7 @@ NICK		// NICK <nickname>
 			-, [, ], \, `, ^, {, })
 
 USER		// USER <username> 0 * : <realname>
-			// (Pas besoin d'espaces entre tout)
+			// (Pas besoin d'espaces entre tout ou 1000 espaces marchent)
 
 PASS		// PASS <password>
 			// Set le mdp (Non modifiable par la suite)

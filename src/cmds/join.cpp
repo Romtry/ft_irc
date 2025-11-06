@@ -1,16 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parseCommand.cpp                                   :+:      :+:    :+:   */
+/*   join.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/30 12:27:50 by rdedola           #+#    #+#             */
-/*   Updated: 2025/10/30 15:20:08 by rdedola          ###   ########.fr       */
+/*   Created: 2025/10/30 14:26:31 by rdedola           #+#    #+#             */
+/*   Updated: 2025/10/30 14:55:48 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "IRCServ.hpp"
 
-
-#include "../../includes/defines.hpp"
-#include "../../includes/IRCServ.hpp"
+void	IRCServ::CMDjoin(unsigned int clientindex, std::string &buffer)
+{
+	
+}

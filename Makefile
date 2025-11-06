@@ -6,7 +6,7 @@
 #    By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 15:09:31 by rdedola           #+#    #+#              #
-#    Updated: 2025/10/24 15:10:12 by rdedola          ###   ########.fr        #
+#    Updated: 2025/10/30 14:22:51 by rdedola          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC			:=	src/main.cpp \
 				src/cmds/nick.cpp \
 				src/cmds/pass.cpp \
 				src/cmds/user.cpp \
+				src/cmds/join.cpp \
 
 
 # Variables

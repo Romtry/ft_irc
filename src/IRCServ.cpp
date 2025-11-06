@@ -1,6 +1,14 @@
-//
-// Created by rothiery on 10/22/25.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   IRCServ.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/30 12:28:01 by rdedola           #+#    #+#             */
+/*   Updated: 2025/10/30 15:18:57 by rdedola          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../includes/IRCServ.hpp"
 
@@ -84,5 +92,5 @@ void IRCServ::Message(const unsigned int i)
 		return;
 	}
 	std::string tmp = buffer;
-	parseCommand(i - 1, tmp);
+	parseCommand(_clients[i - 1], tmp);
 }

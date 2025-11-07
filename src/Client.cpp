@@ -14,7 +14,7 @@
 
 void Client::printTocken() const
 {
-	for (unsigned int i = 0; _tocken[i].data(); ++i)
+	for (unsigned int i = 0; i < _tocken.size(); ++i)
 	{
 		std::cout << _tocken[i].data() << std::endl;
 	}

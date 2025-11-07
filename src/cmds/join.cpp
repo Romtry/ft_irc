@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "IRCServ.hpp"
+#include "../../includes/IRCServ.hpp"
 
-void	IRCServ::CMDjoin(unsigned int clientindex, std::string &buffer)
-{
-	
-}
+// void	IRCServ::CMDjoin(unsigned int clientindex, std::string &buffer)
+// {
+//
+// }

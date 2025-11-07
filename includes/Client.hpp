@@ -17,15 +17,16 @@
 class Client
 {
 	private:
-		std::string _nick;
-		std::string _user;
-		bool 		_pass;
-		bool		_isRegister;
-		int			_clientsSocket;
-		
+		std::vector<std::string>	_tocken;
+		std::string 				_nick;
+		std::string 				_user;
+		bool 						_pass;
+		bool						_isRegister;
+		int							_clientsSocket;
+
 	public:
-		Client(const int fd) : _nick(""), _user(""), _pass(0), _isRegister(0), _clientsSocket(fd) {}
-		~Client();
+		Client(const int fd) : _nick(""), _user(""), _pass(false), _isRegister(false), _clientsSocket(fd) {}
+		~Client() {};
 
 		std::string	getNick() const {return (_nick);}
 		std::string getUser() const {return (_user);}
@@ -38,6 +39,8 @@ class Client
 		void	setUser(const std::string &user) {_user = user;}
 		void	setPass(const bool pass) {_pass = pass;}
 		void	setIsRegister(const bool isRegister) {_isRegister = isRegister;}
+
+		void	pushbackTocken(const std::string &str) {_tocken.push_back(str);};
 
 		void	sendMessage(const std::string &message) const;
 };

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Channel.hpp"
+#include "../includes/Channel.hpp"
 
 Channel::Channel(Client *member, std::string name)
 	:	_chanName(name), _password(""), _topic(""), _userLimit(0)
@@ -37,7 +37,7 @@ void	Channel::removeMember(Client *member)
 	return ;
 }
 
-bool	Channel::isMemmber(std::string nickName)
+bool	Channel::isMemmber(const std::string &nickName)
 {
 	for (unsigned int i = 0; i < _members.size(); ++i)
 	{

@@ -31,7 +31,7 @@ class Channel
 
 		void			addMember(Client *member);
 		void			removeMember(Client *member);
-		bool			isMemmber(std::string nickName);
+		bool			isMemmber(const std::string &nickName);
 
 		std::string		getChanName()	const	{return (_chanName);}
 		std::string		getPassword()	const	{return (_password);}

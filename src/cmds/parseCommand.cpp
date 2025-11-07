@@ -11,6 +11,39 @@
 /* ************************************************************************** */
 
 
+#include <variant>
 
 #include "../../includes/defines.hpp"
 #include "../../includes/IRCServ.hpp"
+
+void	skipSpaces(const std::string &str, unsigned int &i)
+{
+	i = str.find_first_not_of(' ', i);
+}
+
+void IRCServ::parseCommand(Client *client, const std::string &buffer)
+{
+	unsigned int i = 0;
+	while (buffer[i])
+	{
+		if (buffer[i] == ' ')
+		{
+			i = buffer.find('\n') + 1;
+			if (buffer.size() == i)
+				return;
+			continue;
+		}
+		client->pushbackTocken(buffer.substr(i, buffer.find(' ', i) - i));
+		skipSpaces(buffer, i);
+		if (buffer[buffer.find('\n', i) - 1] == '\r')
+		{
+			client->pushbackTocken(buffer.substr(i, buffer.find('\r', i) - i));
+			i = buffer.find('\n', i) + 2;
+		}
+		else
+		{
+			client->pushbackTocken(buffer.substr(i, buffer.find('\n', i) - i));
+			i = buffer.find('\n', i) + 2;
+		}
+	}
+}

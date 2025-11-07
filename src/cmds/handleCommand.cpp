@@ -40,20 +40,29 @@ void IRCServ::parseCommand(Client *client, const std::string &buffer)
 		{
 			client->pushbackTocken(buffer.substr(i, buffer.find('\r', i) - i));
 			i = buffer.find('\n', i) + 1;
+			execCommand(client);
 		}
 		else
 		{
 			client->pushbackTocken(buffer.substr(i, buffer.find('\n', i) - i));
 			i = buffer.find('\n', i) + 1;
+			execCommand(client);
 		}
 	}
 }
 
-// void IRCServ::execCommand(Client *client)
-// {
-// 	const std::vector<std::string> tmp = client->getTokens();
-// 	for (unsigned int i = 0; i < tmp.size(); ++i)
-// 	{
-// 		if (tmp[i].data() == "CAP")
-// 	}
-// }
+void IRCServ::execCommand(Client *client)
+{
+	// if (client->getTokens(0) == "JOIN")
+	// 	CMDjoin(client, client->getTokens(1));
+	if (client->getTokens(0) == "NICK")
+		CMDnick(client, client->getTokens(1));
+	else if (client->getTokens(0) == "PASS")
+		CMDpass(client, client->getTokens(1));
+	else if (client->getTokens(0) == "USER")
+		CMDuser(client, client->getTokens(1));
+	else if (client->getTokens(0) != "CAP")
+		std::cout << ERR_UNKNOWNCOMMAND(client->getTokens(0)) << std::endl;
+	client->printTocken();
+	client->clearToken();
+}

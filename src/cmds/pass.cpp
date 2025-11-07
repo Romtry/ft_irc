@@ -13,24 +13,23 @@
 #include "../../includes/IRCServ.hpp"
 #include "../../includes/defines.hpp"
 
-void IRCServ::CMDpass(unsigned int clientindex, std::string &buffer)
+void IRCServ::CMDpass(Client *client, const std::string &buffer)
 {
-	if (_clients[clientindex]->getPass())
+	if (client->getPass())
 	{
-		_clients[clientindex]->sendMessage(ERR_ALREADYREGISTRED);
+		client->sendMessage(ERR_ALREADYREGISTRED);
 		return;
 	}
-	// buffer.erase(0, buffer.find(' '));
 	std::cout << "buffer = [" << buffer << "] psw = [" << _password << "]" << std::endl;
 	if (buffer == _password)
 	{
-		_clients[clientindex]->setPass(true);
-		if (_clients[clientindex]->getNick() != "" && _clients[clientindex]->getUser() != "" )
+		client->setPass(true);
+		if (client->getNick() != "" && client->getUser() != "" )
 		{
 			std::cout << "Password set" << std::endl;
-			_clients[clientindex]->setIsRegister(true);
+			client->setIsRegister(true);
 		}
 	}
 	else
-		_clients[clientindex]->sendMessage(ERR_PASSWDMISMATCH);
+		client->sendMessage(ERR_PASSWDMISMATCH);
 }

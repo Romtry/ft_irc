@@ -13,28 +13,27 @@
 #include "../../includes/defines.hpp"
 #include "../../includes/IRCServ.hpp"
 
-void IRCServ::CMDnick(unsigned int clientindex, std::string &buffer)
+void IRCServ::CMDnick(Client *client, const std::string &buffer)
 {
-	if (_clients[clientindex]->getNick() != "")
+	if (client->getNick() != "")
 	{
-		_clients[clientindex]->sendMessage(ERR_ALREADYREGISTRED);
+		client->sendMessage(ERR_ALREADYREGISTRED);
 		return;
 	}
-	// buffer.erase(0, buffer.find(' '));
 	const std::string tmp = buffer.substr(0, buffer.find(' '));
 	if (tmp.length() > 9 && !isalpha(tmp[0]))
 	{
-		_clients[clientindex]->sendMessage(ERR_ERRONEUSNICKNAME(tmp));
+		client->sendMessage(ERR_ERRONEUSNICKNAME(tmp));
 		return ;
 	}
 	for (unsigned int i = 1; i < tmp.length(); ++i)
 	{
 		if (isalnum(tmp[i]) || tmp[i] == '-' || tmp[i] == '[' || tmp[i] == ']'
 			|| tmp[i] == '\\' || tmp[i] == '`' || tmp[i] == '^' || tmp[i] == '{' || tmp[i] == '}')
-			break ;
+			continue ;
 		else
 		{
-			_clients[clientindex]->sendMessage(ERR_ERRONEUSNICKNAME(tmp));
+			client->sendMessage(ERR_ERRONEUSNICKNAME(tmp));
 			return ;
 		}
 	}
@@ -42,9 +41,9 @@ void IRCServ::CMDnick(unsigned int clientindex, std::string &buffer)
 	{
 		if (tmp == _clients[i]->getNick())
 		{
-			_clients[clientindex]->sendMessage(ERR_NICKNAMEINUSE(tmp));
+			client->sendMessage(ERR_NICKNAMEINUSE(tmp));
 			return ;
 		}
 	}
-	_clients[clientindex]->setNick(tmp);
+	client->setNick(tmp);
 }

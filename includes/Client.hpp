@@ -28,7 +28,7 @@ class Client
 		Client(const int fd) : _nick(""), _user(""), _pass(false), _isRegister(false), _clientsSocket(fd) {}
 		~Client() {}
 
-		std::vector<std::string>	getTokens() {return (_token);};
+		std::string &getTokens(const unsigned int i) {return (_token[i]);};
 		std::string					getNick() const {return (_nick);}
 		std::string 				getUser() const {return (_user);}
 		bool						getPass() const {return (_pass);}

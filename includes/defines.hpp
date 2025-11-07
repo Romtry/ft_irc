@@ -24,6 +24,9 @@
 # define ERR_ALREADYREGISTRED	"462 :You may not reregister\r\n"
 # define ERR_PASSWDMISMATCH		"464 :Password incorrect\r\n"
 
+// OTHER
+# define ERR_UNKNOWNCOMMAND(command)		"421 " + command + " :Unknown command\r\n"
+
 // NICK
 # define ERR_NONICKNAMEGIVEN			"431 :No nickname given\r\n"
 # define ERR_ERRONEUSNICKNAME(nickname)	"432 " + nickname + " :Erroneus nickname\r\n"

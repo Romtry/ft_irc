@@ -24,6 +24,8 @@ void	skipSpaces(const std::string &str, unsigned int &i)
 void IRCServ::parseCommand(Client *client, const std::string &buffer)
 {
 	unsigned int i = 0;
+	unsigned int j = 0;
+	std::cout << "BUFFER = " << buffer << std::endl;
 	while (buffer[i])
 	{
 		if (buffer[i] == ' ')
@@ -33,18 +35,24 @@ void IRCServ::parseCommand(Client *client, const std::string &buffer)
 				return;
 			continue;
 		}
+		std::cout << "token[" << j++ << "] = " << buffer.substr(i, buffer.find(' ', i) - i) << std::endl;
 		client->pushbackTocken(buffer.substr(i, buffer.find(' ', i) - i));
 		i = buffer.find(' ', i);
 		skipSpaces(buffer, i);
+		std::cout << "New i = " << i << std::endl;
 		if (buffer[buffer.find('\n', i) - 1] == '\r')
 		{
+			std::cout << "token[" << j++ << "] = " << buffer.substr(i, buffer.find('\r', i) - i) << std::endl;
 			client->pushbackTocken(buffer.substr(i, buffer.find('\r', i) - i));
 			i = buffer.find('\n', i) + 1;
+			std::cout << "New i = " << i << std::endl;
 		}
 		else
 		{
+			std::cout << "token[" << j++ << "] = " << buffer.substr(i, buffer.find('\n', i) - i) << std::endl;
 			client->pushbackTocken(buffer.substr(i, buffer.find('\n', i) - i));
 			i = buffer.find('\n', i) + 1;
+			std::cout << "New i = " << i << std::endl;
 		}
 	}
 }

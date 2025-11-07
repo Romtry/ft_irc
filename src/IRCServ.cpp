@@ -93,6 +93,7 @@ void IRCServ::Message(const unsigned int i)
 		return;
 	}
 	std::string tmp = buffer;
-	parseCommand(_clients[i - 1], tmp);
-	_clients[i - 1]->printTocken();
+	std::cout << "tmp = " << tmp << std::endl;
+	// parseCommand(_clients[i - 1], tmp);
+	// _clients[i - 1]->printTocken();
 }

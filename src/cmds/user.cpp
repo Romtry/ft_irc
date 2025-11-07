@@ -13,7 +13,7 @@
 #include "../../includes/IRCServ.hpp"
 #include "../../includes/defines.hpp"
 
-void IRCServ::CMDuser(Client *client, const std::string &buffer)
+void IRCServ::CMDuser(Client *client, std::string &buffer)
 {
 	if (client->getUser() != "")
 	{

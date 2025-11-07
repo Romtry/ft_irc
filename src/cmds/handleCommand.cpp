@@ -33,6 +33,8 @@ void IRCServ::parseCommand(Client *client, const std::string &buffer)
 				return;
 			continue;
 		}
+		if (buffer.find(' ', i) == std::string::npos)
+			return;
 		client->pushbackTocken(buffer.substr(i, buffer.find(' ', i) - i));
 		i = buffer.find(' ', i);
 		skipSpaces(buffer, i);

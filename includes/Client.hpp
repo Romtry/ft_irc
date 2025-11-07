@@ -42,5 +42,7 @@ class Client
 
 		void	pushbackTocken(const std::string &str) {_tocken.push_back(str);};
 
+		void printTocken() const;
+
 		void	sendMessage(const std::string &message) const;
 };

@@ -12,6 +12,14 @@
 
 #include "../includes/Client.hpp"
 
+void Client::printTocken() const
+{
+	for (unsigned int i = 0; _tocken[i].data(); ++i)
+	{
+		std::cout << _tocken[i].data() << std::endl;
+	}
+}
+
 void Client::sendMessage(const std::string &message) const
 {
 	send(_clientsSocket, message.c_str(), message.size(), 0);

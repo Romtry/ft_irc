@@ -78,6 +78,7 @@ void IRCServ::AddClient()
 	_socket.push_back(clientfds);
 	Client *temp = new Client(clientSocket);
 	_clients.push_back(temp);
+	std::cout << "CLIENT HAS JOIN" << std::endl;
 }
 
 void IRCServ::Message(const unsigned int i)
@@ -93,4 +94,5 @@ void IRCServ::Message(const unsigned int i)
 	}
 	std::string tmp = buffer;
 	parseCommand(_clients[i - 1], tmp);
+	_clients[i]->printTocken();
 }

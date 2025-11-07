@@ -34,6 +34,7 @@ void IRCServ::parseCommand(Client *client, const std::string &buffer)
 			continue;
 		}
 		client->pushbackTocken(buffer.substr(i, buffer.find(' ', i) - i));
+		i = buffer.find(' ', i);
 		skipSpaces(buffer, i);
 		if (buffer[buffer.find('\n', i) - 1] == '\r')
 		{

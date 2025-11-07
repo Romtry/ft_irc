@@ -14,10 +14,15 @@
 
 void Client::printTocken() const
 {
-	for (unsigned int i = 0; i < _tocken.size(); ++i)
+	for (unsigned int i = 0; i < _token.size(); ++i)
 	{
-		std::cout << _tocken[i].data() << std::endl;
+		std::cout << _token[i].data() << std::endl;
 	}
+}
+
+void Client::clearToken()
+{
+	_token.clear();
 }
 
 void Client::sendMessage(const std::string &message) const

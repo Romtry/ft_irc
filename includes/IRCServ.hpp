@@ -38,6 +38,8 @@ class IRCServ
 		void Message(unsigned int i);
 
 		void parseCommand(Client *client, const std::string &buffer);
+		void execCommand(Client *client);
+
 		void CMDpass(unsigned int clientindex, std::string &buffer);
 		void CMDnick(unsigned int clientindex, std::string &buffer);
 		void CMDuser(unsigned int clientindex, std::string &buffer);

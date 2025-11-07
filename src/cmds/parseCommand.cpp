@@ -39,12 +39,12 @@ void IRCServ::parseCommand(Client *client, const std::string &buffer)
 		if (buffer[buffer.find('\n', i) - 1] == '\r')
 		{
 			client->pushbackTocken(buffer.substr(i, buffer.find('\r', i) - i));
-			i = buffer.find('\n', i) + 2;
+			i = buffer.find('\n', i) + 1;
 		}
 		else
 		{
 			client->pushbackTocken(buffer.substr(i, buffer.find('\n', i) - i));
-			i = buffer.find('\n', i) + 2;
+			i = buffer.find('\n', i) + 1;
 		}
 	}
 }

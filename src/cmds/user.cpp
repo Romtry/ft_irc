@@ -25,21 +25,19 @@ void IRCServ::CMDuser(Client *client)
 	unsigned int i = 0;
 	std::string username = client->getTokens(1).substr(0, client->getTokens(1).find(' '));
 	i = client->getTokens(1).find(' ', i);
-	std::cout << "i: " << i << " token: " << client->getTokens(1).substr(i) << std::endl;
-	i = client->getTokens(1).find(i, client->getTokens(1).find_first_not_of(' '));
-	std::cout << "i: " << i << " token: " << client->getTokens(1) << std::endl;
-	// if (client->getTokens(1)[i] != '0' || client->getTokens(1).find(' ', i) == std::string::npos)
-	// 	return;
-	// if (client->getTokens(1)[i + 1] != ' ')
-	// 	return;
-	// i = client->getTokens(1).find(i + 1, client->getTokens(1).find_first_not_of(' '));
-	// if (client->getTokens(1)[i] != '*' || client->getTokens(1).find(' ', i) == std::string::npos)
-	// 	return;
-	// if (client->getTokens(1)[i + 1] != ' ')
-	// 	return;
-	// i = client->getTokens(1).find(i + 1, client->getTokens(1).find_first_not_of(' '));
-	// if (client->getTokens(1)[i] != ':' || i + 1 == client->getTokens(1).size())
-	// 	return;
+	i = client->getTokens(1).find_first_not_of(' ', i);
+	if (client->getTokens(1)[i] != '0' || client->getTokens(1).find(' ', i) == std::string::npos)
+		return;
+	if (client->getTokens(1)[i + 1] != ' ')
+		return;
+	i = client->getTokens(1).find_first_not_of(' ', i + 1);
+	if (client->getTokens(1)[i] != '*' || client->getTokens(1).find(' ', i) == std::string::npos)
+		return;
+	if (client->getTokens(1)[i + 1] != ' ')
+		return;
+	i = client->getTokens(1).find_first_not_of(' ', i + 1);
+	if (client->getTokens(1)[i] != ':' || i + 1 == client->getTokens(1).size())
+		return;
 	client->setUser(username);
 	std::cout << "Userset" << std::endl;
 }

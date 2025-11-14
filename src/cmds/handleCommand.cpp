@@ -16,14 +16,9 @@
 #include "../../includes/defines.hpp"
 #include "../../includes/IRCServ.hpp"
 
-void	skipSpaces(const std::string &str, unsigned int &i)
-{
-	i = str.find_first_not_of(' ', i);
-}
-
 void IRCServ::parseCommand(Client *client, const std::string &buffer)
 {
-	unsigned int i = 0;
+	unsigned long i = 0;
 	while (buffer[i])
 	{
 		if (buffer[i] == ' ')
@@ -35,9 +30,16 @@ void IRCServ::parseCommand(Client *client, const std::string &buffer)
 		}
 		if (buffer.find(' ', i) == std::string::npos)
 			return;
+		if (buffer.find(' ', i) > buffer.find('\n', i))
+		{
+			i = buffer.find('\n') + 1;
+			if (buffer.size() == i)
+				return;
+			continue;
+		}
 		client->pushbackTocken(buffer.substr(i, buffer.find(' ', i) - i));
 		i = buffer.find(' ', i);
-		skipSpaces(buffer, i);
+		i = buffer.find_first_not_of(' ', i);
 		if (buffer[buffer.find('\n', i) - 1] == '\r')
 		{
 			client->pushbackTocken(buffer.substr(i, buffer.find('\r', i) - i));
@@ -62,7 +64,7 @@ void IRCServ::execCommand(Client *client)
 	else if (client->getTokens(0) == "PASS")
 		CMDpass(client, client->getTokens(1));
 	else if (client->getTokens(0) == "USER")
-		CMDuser(client, client->getTokens(1));
+		CMDuser(client);
 	else if (client->getTokens(0) != "CAP")
 		std::cout << ERR_UNKNOWNCOMMAND(client->getTokens(0)) << std::endl;
 	client->printTocken();

@@ -26,7 +26,7 @@ SRC			:=	src/main.cpp \
 
 # Variables
 CC			:=	c++
-CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -Iincludes -fsanitize=address -g
+CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -Iincludes -fsanitize=address -g3
 
 # Colors
 DEF_COLOR	= \033[0;39m

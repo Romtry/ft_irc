@@ -12,7 +12,10 @@
 
 #pragma once
 
+#include "Channel.hpp"
 #include "IRCServ.hpp"
+
+class Channel;
 
 class Client
 {
@@ -23,6 +26,7 @@ class Client
 		bool 						_pass;
 		bool						_isRegister;
 		int							_clientsSocket;
+		std::vector<Channel *>		_clientChannels;
 
 	public:
 		Client(const int fd) : _nick(""), _user(""), _pass(false), _isRegister(false), _clientsSocket(fd) {}
@@ -34,7 +38,9 @@ class Client
 		bool						getPass() const {return (_pass);}
 		bool						getisregister() const {return (_isRegister);}
 		int							getClientSocket() const {return (_clientsSocket);}
+		std::vector<Channel *>		getChannels() const {return (_clientChannels);};
 
+		void	addChannel(Channel *c) {_clientChannels.push_back(c);};
 
 		void	setNick(const std::string &nick) {_nick = nick;}
 		void	setUser(const std::string &user) {_user = user;}

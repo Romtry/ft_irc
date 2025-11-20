@@ -13,7 +13,7 @@
 #include "../../includes/IRCServ.hpp"
 #include "../../includes/defines.hpp"
 
-void IRCServ::CMDpass(Client *client, const std::string &buffer)
+void IRCServ::CMDpass(Client *client, const std::string &buffer) const
 {
 	if (client->getPass())
 	{

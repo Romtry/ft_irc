@@ -40,10 +40,10 @@ class IRCServ
 		void parseCommand(Client *client, const std::string &buffer);
 		void execCommand(Client *client);
 
-		void CMDpass(Client *client, const std::string &buffer);
-		void CMDnick(Client *client, const std::string &buffer);
+		void CMDpass(Client *client, const std::string &buffer) const;
+		void CMDnick(Client *client, const std::string &buffer) const;
 		void CMDuser(Client *client);
-		void CMDjoin(Client *client, const std::string &buffer);
+		void CMDjoin(Client &client, const std::string &buffer) const;
 
 	private:
 		const unsigned int			_port;

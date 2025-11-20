@@ -13,7 +13,7 @@
 #include "../../includes/defines.hpp"
 #include "../../includes/IRCServ.hpp"
 
-void IRCServ::CMDnick(Client *client, const std::string &buffer)
+void IRCServ::CMDnick(Client *client, const std::string &buffer) const
 {
 	if (client->getNick() != "")
 	{

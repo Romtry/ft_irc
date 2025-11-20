@@ -57,8 +57,8 @@ void IRCServ::parseCommand(Client *client, const std::string &buffer)
 
 void IRCServ::execCommand(Client *client)
 {
-	// if (client->getTokens(0) == "JOIN")
-	// 	CMDjoin(client, client->getTokens(1));
+	if (client->getTokens(0) == "JOIN")
+		CMDjoin(*client, client->getTokens(1));
 	if (client->getTokens(0) == "NICK")
 		CMDnick(client, client->getTokens(1));
 	else if (client->getTokens(0) == "PASS")

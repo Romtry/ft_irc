@@ -27,7 +27,6 @@ void IRCServ::CMDuser(Client *client)
 	}
 	unsigned int i = 0;
 	std::string username = client->getTokens(1).substr(0, client->getTokens(1).find(' '));
-	std::cout << "user = " << username << std::endl;
 	i = client->getTokens(1).find_first_not_of(' ', client->getTokens(1).find(' ', i));
 	if (!client->getTokens(1)[i + 1] || client->getTokens(1).find(' ', i) == std::string::npos)
 	{

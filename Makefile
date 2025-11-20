@@ -17,6 +17,7 @@ EXE			:=	ircserv
 SRC			:=	src/main.cpp \
 				src/IRCServ.cpp \
 				src/Client.cpp \
+				src/Channel.cpp \
 				src/cmds/handleCommand.cpp \
 				src/cmds/nick.cpp \
 				src/cmds/pass.cpp \
@@ -26,7 +27,7 @@ SRC			:=	src/main.cpp \
 
 # Variables
 CC			:=	c++
-CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -Iincludes -fsanitize=address -g3
+CFLAGS		:=	-Wall -Wextra -Werror -std=c++98 -Iincludes  -g3
 
 # Colors
 DEF_COLOR	= \033[0;39m

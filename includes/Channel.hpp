@@ -23,14 +23,13 @@ class Channel
 		std::string					_chanName;
 		std::string					_password;
 		std::string					_topic;
-		unsigned int				_userLimit;
 		std::vector<Client *>		_members;
 		std::vector<std::string>	_operators;
 		std::vector<std::string>	_guests;
 	
 	public:
-		Channel(Client *member, std::string name);
-		~Channel();
+		Channel(Client *member, const std::string &name);
+		~Channel() {};
 
 		void			addMember(Client *member);
 		void			removeMember(Client *member);

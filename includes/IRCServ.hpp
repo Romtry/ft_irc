@@ -43,7 +43,7 @@ class IRCServ
 		void CMDpass(Client *client, const std::string &buffer) const;
 		void CMDnick(Client *client, const std::string &buffer) const;
 		void CMDuser(Client *client);
-		void CMDjoin(Client &client, const std::string &buffer) const;
+		void CMDjoin(Client *client, const std::string &buffer) const;
 
 	private:
 		const unsigned int			_port;

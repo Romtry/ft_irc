@@ -12,8 +12,8 @@
 
 #include "../includes/Channel.hpp"
 
-Channel::Channel(Client *member, std::string name)
-	:	_chanName(name), _password(""), _topic(""), _userLimit(0)
+Channel::Channel(Client *member, const std::string &name)
+	:	_chanName(name), _password(""), _topic("")
 {
 	addMember(member);
 }

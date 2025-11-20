@@ -13,29 +13,31 @@
 #include "../../includes/Channel.hpp"
 #include "../../includes/IRCServ.hpp"
 
-void	IRCServ::CMDjoin(Client &client, const std::string &buffer) const
+void	IRCServ::CMDjoin(Client *client, const std::string &buffer) const
 {
-	if (!client.getisregister())
+	if (!client->getisregister())
 	{
-		client.sendMessage(ERR_NOTREGISTERED);
+		client->sendMessage(ERR_NOTREGISTERED);
 		return;
 	}
 	std::string channelName = buffer.substr(0, buffer.find_first_of(' '));
 	if (channelName[0] != '#' || !channelName[1])
 		return;
 	channelName.erase(0, 1);
-	for (unsigned int i = 0; i < client.getChannels().size(); ++i)
+	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
-		if (client.getChannels()[i]->getChanName() == channelName)
+		if (client->getChannels()[i]->getChanName() == channelName)
 			return;
 	}
-	for (unsigned int i = 0; _channels[i]; ++i)
+	for (unsigned int i = 0; i < _channels.size(); ++i)
 	{
 		if (_channels[i]->getChanName() == channelName)
 		{
-			client.addChannel(_channels[i]);
+			client->addChannel(_channels[i]);
 			return;
 		}
 	}
-	client.sendMessage(ERR_NOTREGISTERED);
+	Channel *tmp = new Channel(client, channelName);
+	client->getChannels().push_back(tmp);
+	client->addChannel(tmp);
 }

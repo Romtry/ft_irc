@@ -58,8 +58,8 @@ void IRCServ::parseCommand(Client *client, const std::string &buffer)
 void IRCServ::execCommand(Client *client)
 {
 	if (client->getTokens(0) == "JOIN")
-		CMDjoin(*client, client->getTokens(1));
-	if (client->getTokens(0) == "NICK")
+		CMDjoin(client, client->getTokens(1));
+	else if (client->getTokens(0) == "NICK")
 		CMDnick(client, client->getTokens(1));
 	else if (client->getTokens(0) == "PASS")
 		CMDpass(client, client->getTokens(1));
@@ -68,5 +68,7 @@ void IRCServ::execCommand(Client *client)
 	else if (client->getTokens(0) != "CAP")
 		client->sendMessage(ERR_UNKNOWNCOMMAND(client->getTokens(0)));
 	// client->printTocken();
+	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
+		std::cout << "client channels = " << client->getChannels()[i]->getChanName() << std::endl;
 	client->clearToken();
 }

@@ -46,4 +46,9 @@ void IRCServ::CMDnick(Client *client, const std::string &buffer)
 		}
 	}
 	client->setNick(tmp);
+	if (client->getPass() && client->getUser() != "")
+	{
+		std::cout << "REGISTERED" << std::endl;
+		client->setIsRegister(true);
+	}
 }

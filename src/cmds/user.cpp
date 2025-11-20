@@ -21,7 +21,10 @@ void IRCServ::CMDuser(Client *client)
 		return;
 	}
 	if (client->getTokens(1).find(' ') == std::string::npos)
+	{
+		client->sendMessage(ERR_NEEDMOREPARAMS);
 		return;
+	}
 	unsigned int i = 0;
 	std::string username = client->getTokens(1).substr(0, client->getTokens(1).find(' '));
 	i = client->getTokens(1).find(' ', i);
@@ -39,5 +42,9 @@ void IRCServ::CMDuser(Client *client)
 	if (client->getTokens(1)[i] != ':' || i + 1 == client->getTokens(1).size())
 		return;
 	client->setUser(username);
-	std::cout << "Userset" << std::endl;
+	if (client->getPass() && client->getNick() != "")
+	{
+		std::cout << "REGISTERED" << std::endl;
+		client->setIsRegister(true);
+	}
 }

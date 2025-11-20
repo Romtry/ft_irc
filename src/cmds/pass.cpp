@@ -20,13 +20,12 @@ void IRCServ::CMDpass(Client *client, const std::string &buffer)
 		client->sendMessage(ERR_ALREADYREGISTRED);
 		return;
 	}
-	std::cout << "buffer = [" << buffer << "] psw = [" << _password << "]" << std::endl;
 	if (buffer == _password)
 	{
 		client->setPass(true);
 		if (client->getNick() != "" && client->getUser() != "" )
 		{
-			std::cout << "Password set" << std::endl;
+			std::cout << "REGISTERED" << std::endl;
 			client->setIsRegister(true);
 		}
 	}

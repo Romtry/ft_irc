@@ -90,6 +90,7 @@ void IRCServ::Message(const unsigned int i)
 		std::cout << "User disconnected" << std::endl;
 		close (_socket[i].fd);
 		_socket.erase(_socket.begin() + i);
+		_clients.erase(_clients.begin() + i - 1);
 		return;
 	}
 	std::string tmp = buffer;

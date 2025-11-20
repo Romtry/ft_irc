@@ -67,6 +67,6 @@ void IRCServ::execCommand(Client *client)
 		CMDuser(client);
 	else if (client->getTokens(0) != "CAP")
 		std::cout << ERR_UNKNOWNCOMMAND(client->getTokens(0)) << std::endl;
-	client->printTocken();
+	// client->printTocken();
 	client->clearToken();
 }

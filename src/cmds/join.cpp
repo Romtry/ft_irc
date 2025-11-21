@@ -34,10 +34,12 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer) const
 		if (_channels[i]->getChanName() == channelName)
 		{
 			client->addChannel(_channels[i]);
+			_channels[i]->addMember(client);
 			return;
 		}
 	}
 	Channel *tmp = new Channel(client, channelName);
-	client->getChannels().push_back(tmp);
+	tmp->addMember(client);
 	client->addChannel(tmp);
+	client->getChannels().push_back(tmp);
 }

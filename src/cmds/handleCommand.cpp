@@ -65,10 +65,12 @@ void IRCServ::execCommand(Client *client)
 		CMDpass(client, client->getTokens(1));
 	else if (client->getTokens(0) == "USER")
 		CMDuser(client);
+	else if (client->getTokens(0) == "TOPIC")
+		CMDtopic(client, client->getTokens(1));
 	else if (client->getTokens(0) != "CAP")
 		client->sendMessage(ERR_UNKNOWNCOMMAND(client->getTokens(0)));
 	// client->printTocken();
-	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
-		std::cout << "client channels = " << client->getChannels()[i]->getChanName() << std::endl;
+	// for (unsigned int i = 0; i < client->getChannels().size(); ++i)
+	// 	std::cout << "client channels = " << client->getChannels()[i]->getChanName() << std::endl;
 	client->clearToken();
 }

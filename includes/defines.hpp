@@ -31,6 +31,9 @@
 // ? USER
 #define ERR_NEEDMOREPARAMS		"461 USER :Not enough parameters\r\n"
 
+// ? TOPIC
+#define ERR_NOSUCHCHANNEL(channel)		"403 " + channel + " :No such channel\r\n"
+
 // ? OTHER
 # define ERR_ALREADYREGISTRED				"462 :Unauthorized command (already registered)\r\n"
 # define ERR_UNKNOWNCOMMAND(command)		"421 " + command + " :Unknown command\r\n"

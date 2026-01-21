@@ -45,6 +45,7 @@ class IRCServ
 		void CMDuser(Client *client);
 		void CMDjoin(Client *client, const std::string &buffer) const;
 		void CMDtopic(const Client *client, std::string &buffer) const;
+		void CMDpart(Client *client, std::string &buffer) const;
 
 	private:
 		const unsigned int			_port;

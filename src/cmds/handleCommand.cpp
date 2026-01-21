@@ -67,6 +67,8 @@ void IRCServ::execCommand(Client *client)
 		CMDuser(client);
 	else if (client->getTokens(0) == "TOPIC")
 		CMDtopic(client, client->getTokens(1));
+	else if (client->getTokens(0) == "PART")
+		CMDpart(client, client->getTokens(1));
 	else if (client->getTokens(0) != "CAP")
 		client->sendMessage(ERR_UNKNOWNCOMMAND(client->getTokens(0)));
 	// client->printTocken();

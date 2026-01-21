@@ -38,7 +38,8 @@ class Client
 		bool						getPass() const {return (_pass);}
 		bool						getisregister() const {return (_isRegister);}
 		int							getClientSocket() const {return (_clientsSocket);}
-		std::vector<Channel *>		getChannels() const {return (_clientChannels);};
+		std::vector<Channel*>		&getChannels() {return (_clientChannels);}
+		const std::vector<Channel*> &getChannels() const {return (_clientChannels);}
 
 		void	addChannel(Channel *c) {_clientChannels.push_back(c);};
 

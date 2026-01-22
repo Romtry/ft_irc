@@ -15,7 +15,7 @@
 
 void IRCServ::CMDnick(Client *client, const std::string &buffer) const
 {
-	if (client->getNick() != "")
+	if (!client->getNick().empty())
 	{
 		client->sendMessage(ERR_ALREADYREGISTRED);
 		return;
@@ -46,7 +46,7 @@ void IRCServ::CMDnick(Client *client, const std::string &buffer) const
 		}
 	}
 	client->setNick(tmp);
-	if (client->getPass() && client->getUser() != "")
+	if (client->getPass() && !client->getUser().empty())
 	{
 		std::cout << "REGISTERED" << std::endl;
 		client->setIsRegister(true);

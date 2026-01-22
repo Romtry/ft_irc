@@ -16,6 +16,7 @@ Channel::Channel(Client *member, const std::string &name)
 	:	_chanName(name), _password(""), _topic("")
 {
 	addMember(member);
+	_operators.push_back(member->getNick());
 }
 
 void	Channel::addMember(Client *member)
@@ -25,19 +26,49 @@ void	Channel::addMember(Client *member)
 	_members.push_back(member);
 }
 
-void	Channel::removeMember(Client *member)
+void	Channel::removeMember(const Client *member)
 {
 	for (unsigned int i = 0; i < _members.size(); ++i)
 	{
 		if (member->getNick() == _members[i]->getNick())
 		{
 			_members.erase(_members.begin() + i);
+			for (unsigned int j = 0; j < _members[i]->getChannels().size(); ++j)
+			{
+				if (_members[i]->getChannels()[j]->getChanName() == _chanName)
+					_members[i]->getChannels().erase(_members[i]->getChannels().begin() + j);
+			}
 		}
 	}
-	return ;
 }
 
-bool	Channel::isMemmber(const std::string &nickName)
+void	Channel::removeMember(const std::string& nick)
+{
+	for (unsigned int i = 0; i < _members.size(); ++i)
+	{
+		if (nick == _members[i]->getNick())
+		{
+			_members.erase(_members.begin() + i);
+			for (unsigned int j = 0; j < _members[i]->getChannels().size(); ++j)
+			{
+				if (_members[i]->getChannels()[j]->getChanName() == _chanName)
+					_members[i]->getChannels().erase(_members[i]->getChannels().begin() + j);
+			}
+		}
+	}
+}
+
+bool Channel::getOperator(const std::string &Nick) const
+{
+	for (unsigned int i = 0; i < _operators.size(); ++i)
+	{
+		if (_operators[i] == Nick)
+			return (true);
+	}
+	return (false);
+}
+
+bool	Channel::isMemmber(const std::string &nickName) const
 {
 	for (unsigned int i = 0; i < _members.size(); ++i)
 	{

@@ -15,7 +15,7 @@
 
 void IRCServ::CMDuser(Client *client)
 {
-	if (client->getUser() != "")
+	if (!client->getUser().empty())
 	{
 		client->sendMessage(ERR_ALREADYREGISTRED);
 		return;
@@ -66,7 +66,7 @@ void IRCServ::CMDuser(Client *client)
 	if (client->getTokens(1)[i] != ':')
 		return;
 	client->setUser(username);
-	if (client->getPass() && client->getNick() != "")
+	if (client->getPass() && !client->getNick().empty())
 	{
 		std::cout << "REGISTERED" << std::endl;
 		client->setIsRegister(true);

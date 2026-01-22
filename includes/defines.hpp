@@ -34,6 +34,12 @@
 // ? TOPIC
 #define ERR_NOSUCHCHANNEL(channel)		"403 " + channel + " :No such channel\r\n"
 
+// ? PRIVMSG
+#define ERR_NOSUCHNICK(nameOrChannel)	"401 " + nameOrChannel + " :No such nick/channel\r\n"
+
+// ? OPERATOR
+#define ERR_CHANOPRIVSNEEDED(channel)	"482 " + channel + " :You're not channel operator\r\n"
+
 // ? OTHER
 # define ERR_ALREADYREGISTRED				"462 :Unauthorized command (already registered)\r\n"
 # define ERR_UNKNOWNCOMMAND(command)		"421 " + command + " :Unknown command\r\n"

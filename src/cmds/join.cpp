@@ -13,7 +13,7 @@
 #include "../../includes/Channel.hpp"
 #include "../../includes/IRCServ.hpp"
 
-void	IRCServ::CMDjoin(Client *client, const std::string &buffer) const
+void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 {
 	if (!client->getisregister())
 	{
@@ -41,5 +41,5 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer) const
 	Channel *tmp = new Channel(client, channelName);
 	tmp->addMember(client);
 	client->addChannel(tmp);
-	client->getChannels().push_back(tmp);
+	_channels.push_back(tmp);
 }

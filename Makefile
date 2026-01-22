@@ -24,7 +24,9 @@ SRC			:=	src/main.cpp \
 				src/cmds/user.cpp \
 				src/cmds/join.cpp \
 				src/cmds/topic.cpp \
-				src/cmds/part.cpp
+				src/cmds/part.cpp \
+				src/cmds/kick.cpp \
+				src/cmds/privmsg.cpp
 
 
 # Variables

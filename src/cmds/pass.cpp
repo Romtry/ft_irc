@@ -23,7 +23,7 @@ void IRCServ::CMDpass(Client *client, const std::string &buffer) const
 	if (buffer == _password)
 	{
 		client->setPass(true);
-		if (client->getNick() != "" && client->getUser() != "" )
+		if (!client->getNick().empty() && !client->getUser().empty() )
 		{
 			std::cout << "REGISTERED" << std::endl;
 			client->setIsRegister(true);

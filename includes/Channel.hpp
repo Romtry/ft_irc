@@ -32,12 +32,15 @@ class Channel
 		~Channel() {};
 
 		void			addMember(Client *member);
-		void			removeMember(Client *member);
-		bool			isMemmber(const std::string &nickName);
+		void			removeMember(const Client *member);
+		void			removeMember(const std::string &nick);
+		bool			isMemmber(const std::string &nickName) const;
 
-		std::string		getChanName()	const	{return (_chanName);}
-		std::string		getPassword()	const	{return (_password);}
-		std::string		getTopic()		const	{return (_topic);}
+		std::vector<Client *>	getClients()	const	{return (_members);}
+		std::string				getChanName()	const	{return (_chanName);}
+		std::string				getPassword()	const	{return (_password);}
+		std::string				getTopic()		const	{return (_topic);}
+		bool					getOperator(const std::string &Nick) const;
 
 		void			setChanName(const std::string chanName)	{_chanName = chanName;}
 		void			setPassword(const std::string password)	{_password = password;}

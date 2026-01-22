@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   topic.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42nice.fr>      #+#  +:+       +#+        */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/21 10:30:32 by rothiery          #+#    #+#             */
-/*   Updated: 2026/01/21 10:30:32 by rothiery         ###   ########.fr       */
+/*   Created: 2026/01/22 11:46:26 by rothiery          #+#    #+#             */
+/*   Updated: 2026/01/22 11:46:30 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../../includes/IRCServ.hpp"
 
-void IRCServ::CMDtopic(const Client *client, std::string &buffer) const
+void IRCServ::CMDtopic(const Client *client, std::string &buffer)
 {
 	if (!client->getisregister())
 	{
@@ -25,19 +26,17 @@ void IRCServ::CMDtopic(const Client *client, std::string &buffer) const
 	currentChanel.erase(0, 1);
 	buffer.erase(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_not_of(' '));
-	unsigned int i = 0;
-	while (i < client->getChannels().size())
+	std::cout << "HERE" << std::endl;
+	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
 		if (client->getChannels()[i]->getChanName() == currentChanel)
-			break;
+		{
+			if (!buffer.empty())
+				client->getChannels()[i]->setTopic(buffer);
+			else
+				client->sendMessage(client->getChannels()[i]->getTopic());
+			return;
+		}
 	}
-	if (i == client->getChannels().size())
-	{
-		client->sendMessage(ERR_NOSUCHCHANNEL(currentChanel));
-		return;
-	}
-	if (!buffer.empty())
-		client->getChannels()[i]->setTopic(buffer);
-	else
-		client->sendMessage(client->getChannels()[i]->getTopic());
+	client->sendMessage(ERR_NOSUCHCHANNEL(currentChanel));
 }

@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   part.cpp                                           :+:      :+:    :+:   */
+/*   kick.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/22 11:46:22 by rothiery          #+#    #+#             */
-/*   Updated: 2026/01/22 11:46:24 by rothiery         ###   ########.fr       */
+/*   Created: 2026/01/22 11:46:18 by rothiery          #+#    #+#             */
+/*   Updated: 2026/01/22 11:46:21 by rothiery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../includes/IRCServ.hpp"
 
-void IRCServ::CMDpart(Client *client, const std::string &buffer)
+void IRCServ::CMDkick(const Client *client, std::string &buffer)
 {
 	if (!client->getisregister())
 	{
@@ -24,11 +24,21 @@ void IRCServ::CMDpart(Client *client, const std::string &buffer)
 	if (channelName[0] != '#' || !channelName[1])
 		return;
 	channelName.erase(0, 1);
+	buffer.erase(0, buffer.find_first_of(' '));
+	buffer.erase(0, buffer.find_first_not_of(' '));
+	const std::string nick = buffer.substr(0, buffer.find_first_of(' '));
 	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
-		if (client->getChannels()[i]->getChanName() == channelName)
+		if (channelName == client->getChannels()[i]->getChanName())
 		{
-			client->getChannels()[i]->removeMember(client->getNick());
+			if (client->getChannels()[i]->getOperator(client->getNick()))
+			{
+				if (client->getChannels()[i]->isMemmber(nick))
+					client->getChannels()[i]->removeMember(nick);
+			}
+			else
+				client->sendMessage(ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()));
+			return;
 		}
 	}
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   privmsg.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/02 09:58:02 by rothiery          #+#    #+#             */
+/*   Updated: 2026/02/02 09:58:04 by rothiery         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/IRCServ.hpp"
 
 void IRCServ::CMDprivmsg(const Client *client, std::string &buffer) const

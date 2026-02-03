@@ -28,9 +28,6 @@
 # define ERR_ERRONEUSNICKNAME(nickname)	"432 " + nickname + " :Erroneus nickname\r\n"
 # define ERR_NICKNAMEINUSE(nickname)	"433 " + nickname + " :Nickname is already in use\r\n"
 
-// ? USER
-#define ERR_NEEDMOREPARAMS		"461 USER :Not enough parameters\r\n"
-
 // ? TOPIC
 #define ERR_NOSUCHCHANNEL(channel)		"403 " + channel + " :No such channel\r\n"
 
@@ -41,5 +38,6 @@
 #define ERR_CHANOPRIVSNEEDED(channel)	"482 " + channel + " :You're not channel operator\r\n"
 
 // ? OTHER
+#define ERR_NEEDMOREPARAMS		"461 USER :Not enough parameters\r\n"
 # define ERR_ALREADYREGISTRED				"462 :Unauthorized command (already registered)\r\n"
 # define ERR_UNKNOWNCOMMAND(command)		"421 " + command + " :Unknown command\r\n"

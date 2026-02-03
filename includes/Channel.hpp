@@ -26,6 +26,8 @@ class Channel
 		std::vector<Client *>		_members;
 		std::vector<std::string>	_operators;
 		std::vector<std::string>	_guests;
+		unsigned int				_limite;
+		bool						_invite_only;
 	
 	public:
 		Channel(Client *member, const std::string &name);
@@ -36,15 +38,20 @@ class Channel
 		void			removeMember(const std::string &nick);
 		bool			isMemmber(const std::string &nickName) const;
 
-		std::vector<Client *>	getClients()	const	{return (_members);}
-		std::string				getChanName()	const	{return (_chanName);}
-		std::string				getPassword()	const	{return (_password);}
-		std::string				getTopic()		const	{return (_topic);}
+		const std::vector<Client *>		&getClients()	const	{return (_members);}
+		const std::string				&getChanName()	const	{return (_chanName);}
+		const std::string				&getPassword()	const	{return (_password);}
+		const std::string				&getTopic()		const	{return (_topic);}
+		unsigned int			getLimite()		const	{return (_limite);}
+		bool					getGuests();
 		bool					getOperator(const std::string &Nick) const;
+		bool					getInvite_only() const {return (_invite_only);}
 
-		void			setChanName(const std::string chanName)	{_chanName = chanName;}
-		void			setPassword(const std::string password)	{_password = password;}
-		void			setTopic(const std::string topic)		{_topic = topic;}
+		void			setLimite(const unsigned int limite) {_limite = limite;}
+		void			setChanName(const std::string& chanName)	{_chanName = chanName;}
+		void			setPassword(const std::string& password)	{_password = password;}
+		void			setInvite_only(const bool b) {_invite_only = b;}
+		void			setTopic(const std::string& topic)		{_topic = topic;}
 
 	
 };

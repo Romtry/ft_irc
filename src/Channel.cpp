@@ -13,7 +13,7 @@
 #include "../includes/Channel.hpp"
 
 Channel::Channel(Client *member, const std::string &name)
-	:	_chanName(name), _password(""), _topic("")
+	:	_chanName(name), _password(""), _topic(""), _limite(0), _invite_only(false)
 {
 	addMember(member);
 	_operators.push_back(member->getNick());
@@ -23,7 +23,9 @@ void	Channel::addMember(Client *member)
 {
 	if (isMemmber(member->getNick()))
 		return ;
-	_members.push_back(member);
+	std::cout << member->getNick() << " trying to join limite: " << _limite << " nbr of members: " << _members.size() << std::endl;
+	if (_limite == 0 || _limite < _members.size())
+		_members.push_back(member);
 }
 
 void	Channel::removeMember(const Client *member)
@@ -77,3 +79,4 @@ bool	Channel::isMemmber(const std::string &nickName) const
 	}
 	return (false);
 }
+

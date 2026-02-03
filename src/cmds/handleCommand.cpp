@@ -73,6 +73,8 @@ void IRCServ::execCommand(Client *client)
 		CMDkick(client, client->getTokens(1));
 	else if (client->getTokens(0) == "PRIVMSG")
 		CMDprivmsg(client, client->getTokens(1));
+	else if (client->getTokens(0) == "MODE")
+		CMDmode(client, client->getTokens(1));
 	else if (client->getTokens(0) != "CAP")
 		client->sendMessage(ERR_UNKNOWNCOMMAND(client->getTokens(0)));
 	// client->printToken();

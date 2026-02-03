@@ -14,7 +14,7 @@
 
 void IRCServ::CMDprivmsg(const Client *client, std::string &buffer) const
 {
-	if (!client->getisregister())
+	if (!client->getIsRegister())
 	{
 		client->sendMessage(ERR_NOTREGISTERED);
 		return;

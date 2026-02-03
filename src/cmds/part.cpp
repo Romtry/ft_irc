@@ -15,7 +15,7 @@
 
 void IRCServ::CMDpart(Client *client, const std::string &buffer)
 {
-	if (!client->getisregister())
+	if (!client->getIsRegister())
 	{
 		client->sendMessage(ERR_NOTREGISTERED);
 		return;

@@ -32,11 +32,11 @@ class Client
 		Client(const int fd) : _nick(""), _user(""), _pass(false), _isRegister(false), _clientsSocket(fd) {}
 		~Client() {}
 
-		std::string &getTokens(const unsigned int i) {return (_token[i]);};
-		std::string					getNick() const {return (_nick);}
-		std::string 				getUser() const {return (_user);}
+		std::string					&getTokens(const unsigned int i) {return (_token[i]);};
+		const std::string			&getNick() const {return (_nick);}
+		const std::string 			&getUser() const {return (_user);}
 		bool						getPass() const {return (_pass);}
-		bool						getisregister() const {return (_isRegister);}
+		bool						getIsRegister() const {return (_isRegister);}
 		int							getClientSocket() const {return (_clientsSocket);}
 		std::vector<Channel*>		&getChannels() {return (_clientChannels);}
 		const std::vector<Channel*> &getChannels() const {return (_clientChannels);}

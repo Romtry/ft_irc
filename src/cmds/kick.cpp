@@ -15,7 +15,7 @@
 
 void IRCServ::CMDkick(const Client *client, std::string &buffer)
 {
-	if (!client->getisregister())
+	if (!client->getIsRegister())
 	{
 		client->sendMessage(ERR_NOTREGISTERED);
 		return;

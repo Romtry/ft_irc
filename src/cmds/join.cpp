@@ -15,7 +15,7 @@
 
 void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 {
-	if (!client->getisregister())
+	if (!client->getIsRegister())
 	{
 		client->sendMessage(ERR_NOTREGISTERED);
 		return;
@@ -33,9 +33,12 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 	{
 		if (_channels[i]->getChanName() == channelName)
 		{
-			client->addChannel(_channels[i]);
-			_channels[i]->addMember(client);
-			return;
+			if (!_channels[i]->getInvite_only())
+			{
+				client->addChannel(_channels[i]);
+				_channels[i]->addMember(client);
+				return;
+			}
 		}
 	}
 	Channel *tmp = new Channel(client, channelName);

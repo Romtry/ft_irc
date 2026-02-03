@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <algorithm>
+#include <stdlib.h>
 #include <sstream>
 
 #include "Client.hpp"
@@ -40,16 +41,17 @@ class IRCServ
 		void parseCommand(Client *client, const std::string &buffer);
 		void execCommand(Client *client);
 
-		void CMDpass(Client *client, const std::string &buffer) const;
-		void CMDnick(Client *client, const std::string &buffer) const;
+		void		CMDpass(Client *client, const std::string &buffer) const;
+		void		CMDnick(Client *client, const std::string &buffer) const;
 		static void CMDuser(Client *client);
-		void CMDjoin(Client *client, const std::string &buffer);
+		void		CMDjoin(Client *client, const std::string &buffer);
 		static void CMDtopic(const Client *client, std::string &buffer) ;
 
 		static void CMDpart(Client *client, const std::string &buffer);
 
 		static void CMDkick(const Client *client, std::string &buffer);
-		void CMDprivmsg(const Client *client, std::string &buffer) const;
+		void		CMDprivmsg(const Client *client, std::string &buffer) const;
+		void		CMDmode(const Client *client, std::string &buffer);
 
 	private:
 		const unsigned int			_port;

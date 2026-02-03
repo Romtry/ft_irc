@@ -27,18 +27,20 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
 		if (client->getChannels()[i]->getChanName() == channelName)
-			return;
+		{
+			 return;
+		}
 	}
 	for (unsigned int i = 0; i < _channels.size(); ++i)
 	{
 		if (_channels[i]->getChanName() == channelName)
 		{
-			if (!_channels[i]->getInvite_only())
+			if (!_channels[i]->getInvite_only() && (_channels[i]->getLimite() == 0 || _channels[i]->getLimite() > _channels[i]->getClients().size()))
 			{
 				client->addChannel(_channels[i]);
 				_channels[i]->addMember(client);
-				return;
 			}
+			return;
 		}
 	}
 	Channel *tmp = new Channel(client, channelName);

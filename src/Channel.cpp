@@ -23,9 +23,7 @@ void	Channel::addMember(Client *member)
 {
 	if (isMemmber(member->getNick()))
 		return ;
-	std::cout << member->getNick() << " trying to join limite: " << _limite << " nbr of members: " << _members.size() << std::endl;
-	if (_limite == 0 || _limite < _members.size())
-		_members.push_back(member);
+	_members.push_back(member);
 }
 
 void	Channel::removeMember(const Client *member)
@@ -34,12 +32,12 @@ void	Channel::removeMember(const Client *member)
 	{
 		if (member->getNick() == _members[i]->getNick())
 		{
-			_members.erase(_members.begin() + i);
 			for (unsigned int j = 0; j < _members[i]->getChannels().size(); ++j)
 			{
 				if (_members[i]->getChannels()[j]->getChanName() == _chanName)
 					_members[i]->getChannels().erase(_members[i]->getChannels().begin() + j);
 			}
+			_members.erase(_members.begin() + i);
 		}
 	}
 }
@@ -56,6 +54,22 @@ void	Channel::removeMember(const std::string& nick)
 				if (_members[i]->getChannels()[j]->getChanName() == _chanName)
 					_members[i]->getChannels().erase(_members[i]->getChannels().begin() + j);
 			}
+		}
+	}
+}
+
+void Channel::removeOperator(const std::string &nick)
+{
+	for (unsigned int i = 0; i < _operators.size(); ++i)
+	{
+		if (_operators[i] == nick)
+		{
+			_operators.erase(_operators.begin() + i);
+			for (unsigned int i = 0; i < _operators.size(); ++i)
+			{
+				std::cout << "operator: " << _operators[i] << std::endl;
+			}
+			return ;
 		}
 	}
 }

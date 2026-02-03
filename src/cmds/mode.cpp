@@ -14,12 +14,13 @@
 
 void mode_exec(const Client *Client, const unsigned int sign, const unsigned int index, Channel *channel, std::string &args)
 {
-	std::cout << Client->getNick() << " inside CMDexec index: " << index << std::endl;
 	switch (index)
 	{
 		// i
 		case 0:
 		{
+			if (!channel->getOperator(Client->getNick()))
+				return;
 			if (sign == '+')
 			{
 				channel->setInvite_only(true);
@@ -36,7 +37,8 @@ void mode_exec(const Client *Client, const unsigned int sign, const unsigned int
 		// l
 		case 1:
 		{
-			std::cout << Client->getNick() << " in mode l" << std::endl;
+			if (!channel->getOperator(Client->getNick()))
+				return;
 			if (sign == '-')
 			{
 				channel->setLimite(0);
@@ -65,11 +67,32 @@ void mode_exec(const Client *Client, const unsigned int sign, const unsigned int
 				return;
 			}
 			channel->setLimite(num);
+			return;
 		}
 		// o
 		case 2:
 		{
-			              
+			if (channel->getOperator(Client->getNick()))
+			{
+				const std::string arg = args.substr(0, args.find_first_of(' '));
+				args.erase(0, args.find_first_of(' '));
+				args.erase(0, args.find_first_not_of(' '));
+				if (sign == '+')
+				{
+					if (channel->getOperator(arg))
+						return ;
+					channel->addOperator(arg);
+				}
+				else
+				{
+					if (!channel->getOperator(arg))
+					{
+						return ;
+					}
+					channel->removeOperator(Client->getNick());
+				}
+			}
+			return;
 		}
 		// t
 		case 3:
@@ -112,7 +135,6 @@ void	mode(const Client *Client, Channel *channel, const char sign, const std::st
 
 void IRCServ::CMDmode(const Client *client, std::string &buffer)
 {
-	std::cout << client->getNick() << " INSIDE CMDmode" << std::endl;
 	if (!client->getIsRegister())
 	{
 		client->sendMessage(ERR_NOTREGISTERED);

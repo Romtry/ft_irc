@@ -36,6 +36,7 @@ class Channel
 		void			addMember(Client *member);
 		void			removeMember(const Client *member);
 		void			removeMember(const std::string &nick);
+		void			removeOperator(const std::string &nick);
 		bool			isMemmber(const std::string &nickName) const;
 
 		const std::vector<Client *>		&getClients()	const	{return (_members);}
@@ -52,6 +53,7 @@ class Channel
 		void			setPassword(const std::string& password)	{_password = password;}
 		void			setInvite_only(const bool b) {_invite_only = b;}
 		void			setTopic(const std::string& topic)		{_topic = topic;}
+		void			addOperator(const std::string &nick)	{_operators.push_back((nick));}
 
 	
 };

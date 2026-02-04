@@ -30,23 +30,13 @@ void	Channel::removeMember(const Client *member)
 {
 	for (unsigned int i = 0; i < _members.size(); ++i)
 	{
-		if (member->getNick() == _members[i]->getNick())
+		if (member == _members[i])
 		{
-			for (unsigned int j = 0; j < _members[i]->getChannels().size(); ++j)
-			{
-				if (_members[i]->getChannels()[j]->getChanName() == _chanName)
-					_members[i]->getChannels().erase(_members[i]->getChannels().begin() + j);
-			}
 			_members.erase(_members.begin() + i);
 			if (getOperator(member))
 			{
 				removeOperator(member);
-				if (_members.empty())
-				{
-					delete (this);
-					return;
-				}
-				if (_operators.empty())
+				if (_operators.empty() && !_members.empty())
 					addOperator(_members[0]);
 			}
 		}

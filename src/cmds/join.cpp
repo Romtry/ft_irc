@@ -31,6 +31,9 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 			 return;
 		}
 	}
+	std::cout << "channel size: " << _channels.size() << std::endl;
+	if (_channels.size() > 0)
+		std::cout << "channel[0]: " << _channels[0]->getChanName() << std::endl;
 	for (unsigned int i = 0; i < _channels.size(); ++i)
 	{
 		if (_channels[i]->getChanName() == channelName)

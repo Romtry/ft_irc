@@ -13,7 +13,7 @@
 
 #include "../../includes/IRCServ.hpp"
 
-void IRCServ::CMDkick(const Client *client, std::string &buffer)
+void IRCServ::CMDkick(Client *client, std::string &buffer)
 {
 	if (!client->getIsRegister())
 	{
@@ -34,7 +34,22 @@ void IRCServ::CMDkick(const Client *client, std::string &buffer)
 			if (client->getChannels()[i]->getOperator(client))
 			{
 				if (client->getChannels()[i]->isMemmber(client))
+				{
 					client->getChannels()[i]->removeMember(client);
+					if (client->getChannels()[i]->getClients().empty())
+					{
+						for (unsigned int j = 0; j < _channels.size(); ++j)
+						{
+							if (_channels[j] == client->getChannels()[i])
+							{
+								Channel *tmp = _channels[j];
+								_channels.erase(_channels.begin() + j);
+								delete (tmp);
+							}
+						}
+					}
+					client->getChannels().erase(client->getChannels().begin() + i);
+				}
 			}
 			else
 				client->sendMessage(ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()));

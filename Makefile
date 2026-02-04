@@ -27,7 +27,8 @@ SRC			:=	src/main.cpp \
 				src/cmds/part.cpp \
 				src/cmds/kick.cpp \
 				src/cmds/privmsg.cpp \
-				src/cmds/mode.cpp
+				src/cmds/mode.cpp \
+				src/cmds/invite.cpp
 
 
 # Variables

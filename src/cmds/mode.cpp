@@ -12,14 +12,14 @@
 
 #include "../../includes/IRCServ.hpp"
 
-void mode_exec(const Client *Client, const unsigned int sign, const unsigned int index, Channel *channel, std::string &args)
+void mode_exec(const Client *client, const unsigned int sign, const unsigned int index, Channel *channel, std::string &args)
 {
 	switch (index)
 	{
 		// i
 		case 0:
 		{
-			if (!channel->getOperator(Client->getNick()))
+			if (!channel->getOperator(client))
 				return;
 			if (sign == '+')
 			{
@@ -37,7 +37,7 @@ void mode_exec(const Client *Client, const unsigned int sign, const unsigned int
 		// l
 		case 1:
 		{
-			if (!channel->getOperator(Client->getNick()))
+			if (!channel->getOperator(client))
 				return;
 			if (sign == '-')
 			{
@@ -46,7 +46,7 @@ void mode_exec(const Client *Client, const unsigned int sign, const unsigned int
 			}
 			if (args.empty())
 			{
-				Client->sendMessage(ERR_NEEDMOREPARAMS);
+				client->sendMessage(ERR_NEEDMOREPARAMS);
 				return;
 			}
 			const std::string arg = args.substr(0, args.find_first_of(' '));
@@ -56,14 +56,14 @@ void mode_exec(const Client *Client, const unsigned int sign, const unsigned int
 			{
 				if (!std::isdigit((arg[i])))
 				{
-					Client->sendMessage(ERR_NEEDMOREPARAMS);
+					client->sendMessage(ERR_NEEDMOREPARAMS);
 					return;
 				}
 			}
 			const unsigned int num = strtoul(arg.c_str(), NULL, 0);
 			if (num == 0)
 			{
-				Client->sendMessage(ERR_NEEDMOREPARAMS);
+				client->sendMessage(ERR_NEEDMOREPARAMS);
 				return;
 			}
 			channel->setLimite(num);
@@ -72,25 +72,34 @@ void mode_exec(const Client *Client, const unsigned int sign, const unsigned int
 		// o
 		case 2:
 		{
-			if (channel->getOperator(Client->getNick()))
+			if (channel->getOperator(client))
 			{
 				const std::string arg = args.substr(0, args.find_first_of(' '));
 				args.erase(0, args.find_first_of(' '));
 				args.erase(0, args.find_first_not_of(' '));
-				if (sign == '+')
+				for (unsigned int i = 0; i < channel->getClients().size(); ++i)
 				{
-					if (channel->getOperator(arg))
-						return ;
-					channel->addOperator(arg);
-				}
-				else
-				{
-					if (!channel->getOperator(arg))
+					if (channel->getClients()[i]->getNick() == arg)
 					{
-						return ;
+						Client *target = channel->getClients()[i];
+						if (sign == '+')
+						{
+							if (channel->getOperator(target))
+								return ;
+							channel->addOperator(target);
+						}
+						else
+						{
+							if (!channel->getOperator(target))
+							{
+								return ;
+							}
+							channel->removeOperator(target);
+						}
+						return;
 					}
-					channel->removeOperator(Client->getNick());
 				}
+				// snedmessage err
 			}
 			return;
 		}
@@ -158,7 +167,7 @@ void IRCServ::CMDmode(const Client *client, std::string &buffer)
 	{
 		if (client->getChannels()[i]->getChanName() == channelName)
 		{
-			if (client->getChannels()[i]->getOperator(client->getNick()))
+			if (client->getChannels()[i]->getOperator(client))
 				mode(client, client->getChannels()[i], modes[0], modes.substr(1, modes.size() - 1), buffer);
 			else
 				//sendmessage err

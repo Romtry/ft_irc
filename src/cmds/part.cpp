@@ -28,7 +28,7 @@ void IRCServ::CMDpart(Client *client, const std::string &buffer)
 	{
 		if (client->getChannels()[i]->getChanName() == channelName)
 		{
-			client->getChannels()[i]->removeMember(client->getNick());
+			client->getChannels()[i]->removeMember(client);
 			return;
 		}
 	}

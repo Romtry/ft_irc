@@ -28,4 +28,4 @@ PRIVMSG		// PRIVMSG <nickame> (ou) <#channel> <message>
 			// Envoie dans un channel ou a un mec
 			
 MODE		// MODE <#channel> <+(ou)-(lettre)> [<args>]
-			// (lettre) = i(invite), l(limit), o(mettre ou retirer admin) (verifier si après le depart du client enlever admin), t(si TOPIC public ou adminOnly), k(Set ou enleve un mdp de chan)
+			// (lettre) = i(invite), o (si plus de op ancien devient op), t(si TOPIC public ou adminOnly), k(Set ou enleve un mdp de chan)

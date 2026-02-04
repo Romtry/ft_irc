@@ -31,10 +31,10 @@ void IRCServ::CMDkick(const Client *client, std::string &buffer)
 	{
 		if (channelName == client->getChannels()[i]->getChanName())
 		{
-			if (client->getChannels()[i]->getOperator(client->getNick()))
+			if (client->getChannels()[i]->getOperator(client))
 			{
-				if (client->getChannels()[i]->isMemmber(nick))
-					client->getChannels()[i]->removeMember(nick);
+				if (client->getChannels()[i]->isMemmber(client))
+					client->getChannels()[i]->removeMember(client);
 			}
 			else
 				client->sendMessage(ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()));

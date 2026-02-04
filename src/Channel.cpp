@@ -16,12 +16,12 @@ Channel::Channel(Client *member, const std::string &name)
 	:	_chanName(name), _password(""), _topic(""), _limite(0), _invite_only(false)
 {
 	addMember(member);
-	_operators.push_back(member->getNick());
+	_operators.push_back(member);
 }
 
 void	Channel::addMember(Client *member)
 {
-	if (isMemmber(member->getNick()))
+	if (isMemmber(member))
 		return ;
 	_members.push_back(member);
 }
@@ -38,57 +38,48 @@ void	Channel::removeMember(const Client *member)
 					_members[i]->getChannels().erase(_members[i]->getChannels().begin() + j);
 			}
 			_members.erase(_members.begin() + i);
-		}
-	}
-}
-
-void	Channel::removeMember(const std::string& nick)
-{
-	for (unsigned int i = 0; i < _members.size(); ++i)
-	{
-		if (nick == _members[i]->getNick())
-		{
-			_members.erase(_members.begin() + i);
-			for (unsigned int j = 0; j < _members[i]->getChannels().size(); ++j)
+			if (getOperator(member))
 			{
-				if (_members[i]->getChannels()[j]->getChanName() == _chanName)
-					_members[i]->getChannels().erase(_members[i]->getChannels().begin() + j);
+				removeOperator(member);
+				if (_members.empty())
+				{
+					delete (this);
+					return;
+				}
+				if (_operators.empty())
+					addOperator(_members[0]);
 			}
 		}
 	}
 }
 
-void Channel::removeOperator(const std::string &nick)
+void Channel::removeOperator(const Client *client)
 {
 	for (unsigned int i = 0; i < _operators.size(); ++i)
 	{
-		if (_operators[i] == nick)
+		if (_operators[i] == client)
 		{
 			_operators.erase(_operators.begin() + i);
-			for (unsigned int i = 0; i < _operators.size(); ++i)
-			{
-				std::cout << "operator: " << _operators[i] << std::endl;
-			}
 			return ;
 		}
 	}
 }
 
-bool Channel::getOperator(const std::string &Nick) const
+bool Channel::getOperator(const Client *client) const
 {
 	for (unsigned int i = 0; i < _operators.size(); ++i)
 	{
-		if (_operators[i] == Nick)
+		if (_operators[i] == client)
 			return (true);
 	}
 	return (false);
 }
 
-bool	Channel::isMemmber(const std::string &nickName) const
+bool	Channel::isMemmber(const Client *client) const
 {
 	for (unsigned int i = 0; i < _members.size(); ++i)
 	{
-		if (nickName == _members[i]->getNick())
+		if (client == _members[i])
 			return (true);
 	}
 	return (false);

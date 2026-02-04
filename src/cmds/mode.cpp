@@ -6,7 +6,7 @@
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 10:02:51 by rothiery          #+#    #+#             */
-/*   Updated: 2026/02/04 14:36:42 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/02/04 14:41:57 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,7 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 			if (!channel->getOperator(client))
 				return;
 			if (sign == '+')
-			{
 				channel->setInvite_only(true);
-				if (!args.empty())
-				{
-					std::cout << "ARGS = " << args << std::endl;
-					std::cout << ERR_NEEDMOREPARAMS << std::endl;
-					return;
-				}
-			}
 			else
 				channel->setInvite_only(false);
 		}

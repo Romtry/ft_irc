@@ -6,7 +6,7 @@
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:27:29 by rdedola           #+#    #+#             */
-/*   Updated: 2025/10/30 12:27:32 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/02/04 14:28:41 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@
 
 // ? OPERATOR
 #define ERR_CHANOPRIVSNEEDED(channel)	"482 " + channel + " :You're not channel operator\r\n"
+
+// ? INVITE
+#define ERR_INVITEONLYCHAN(nick, channel)	"473 " + nick + "#" + channel + " :Cannot join channel (+i)\r\n"
 
 // ? OTHER
 #define ERR_NEEDMOREPARAMS		"461 USER :Not enough parameters\r\n"

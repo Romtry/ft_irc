@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mode.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 10:02:51 by rothiery          #+#    #+#             */
-/*   Updated: 2026/02/02 10:02:53 by rothiery         ###   ########.fr       */
+/*   Updated: 2026/02/04 12:59:36 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 				channel->setInvite_only(true);
 				if (!args.empty())
 				{
-					// sendmessage err
-
+					std::cout << ERR_NEEDMOREPARAMS << std::endl;
+					return;
 				}
 			}
 			else
 				channel->setInvite_only(false);
-
 		}
 		// l
 		case 1:

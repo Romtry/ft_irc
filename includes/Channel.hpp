@@ -6,7 +6,7 @@
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:19:38 by rdedola           #+#    #+#             */
-/*   Updated: 2025/10/30 13:54:18 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/02/04 14:21:21 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ class Channel
 		bool			isMemmber(const Client *client) const;
 
 		const std::vector<Client *>		&getClients()	const	{return (_members);}
+		std::vector<Client *>			&getGuests()			{return (_guests);}
 		const std::string				&getChanName()	const	{return (_chanName);}
 		const std::string				&getPassword()	const	{return (_password);}
 		const std::string				&getTopic()		const	{return (_topic);}
@@ -52,6 +53,7 @@ class Channel
 		void			setInvite_only(const bool b) {_invite_only = b;}
 		void			setTopic(const std::string& topic)		{_topic = topic;}
 		void			addOperator(Client *client)	{_operators.push_back((client));}
+		void			addGuest(Client *client)	{_guests.push_back((client));}
 
 	
 };

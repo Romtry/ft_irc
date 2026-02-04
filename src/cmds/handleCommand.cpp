@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parseCommand.cpp                                   :+:      :+:    :+:   */
+/*   handleCommand.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:27:50 by rdedola           #+#    #+#             */
-/*   Updated: 2025/10/30 15:20:08 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/02/04 12:56:53 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void IRCServ::execCommand(Client *client)
 		CMDprivmsg(client, client->getTokens(1));
 	else if (client->getTokens(0) == "MODE")
 		CMDmode(client, client->getTokens(1));
+	else if (client->getTokens(0) != "INVITE")
+		CMDinvite(client, client->getTokens(1));
 	else if (client->getTokens(0) != "CAP")
 		client->sendMessage(ERR_UNKNOWNCOMMAND(client->getTokens(0)));
 	// client->printToken();

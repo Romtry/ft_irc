@@ -6,7 +6,7 @@
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:27:36 by rdedola           #+#    #+#             */
-/*   Updated: 2025/10/30 15:17:54 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/02/04 13:12:50 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ class IRCServ
 		void CMDkick(Client *client, std::string &buffer);
 		void		CMDprivmsg(const Client *client, std::string &buffer) const;
 		void		CMDmode(const Client *client, std::string &buffer);
+		void		CMDinvite(Client *client, std::string &buffer);
 
 	private:
 		const unsigned int			_port;

@@ -6,7 +6,7 @@
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 14:26:31 by rdedola           #+#    #+#             */
-/*   Updated: 2025/10/30 14:55:48 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/02/04 14:29:44 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,31 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 	{
 		if (_channels[i]->getChanName() == channelName)
 		{
-			if (!_channels[i]->getInvite_only() && (_channels[i]->getLimite() == 0 || _channels[i]->getLimite() > _channels[i]->getClients().size()))
+			if ((_channels[i]->getLimite() == 0 || _channels[i]->getLimite() > _channels[i]->getClients().size()))
 			{
-				client->addChannel(_channels[i]);
-				_channels[i]->addMember(client);
+				if (!_channels[i]->getInvite_only())
+				{
+					client->addChannel(_channels[i]);
+					_channels[i]->addMember(client);
+					return ;
+				}
+				else
+				{
+					for (unsigned int j = 0; j < _channels[i]->getGuests().size(); ++j)
+					{
+						if (_channels[i]->getGuests()[j] == client)
+						{
+							client->addChannel(_channels[i]);
+							_channels[i]->addMember(client);
+							_channels[i]->getGuests().erase(_channels[i]->getGuests().begin() + j);
+							return ;
+						}
+						else
+						{
+							client->sendMessage(ERR_INVITEONLYCHAN(client->getNick(), _channels[i]->getChanName()));
+						}
+					}
+				}
 			}
 			return;
 		}

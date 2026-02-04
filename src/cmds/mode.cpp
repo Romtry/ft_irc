@@ -25,6 +25,7 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 				channel->setInvite_only(true);
 			else
 				channel->setInvite_only(false);
+			return;
 		}
 		// l
 		case 1:

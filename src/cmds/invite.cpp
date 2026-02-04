@@ -20,16 +20,22 @@ void	IRCServ::CMDinvite(Client *client, std::string &buffer)
 		client->sendMessage(ERR_NOTREGISTERED);
 		return ;
 	}
-
+	std::cout << std::endl << "IN INVITE" << std::endl;
 	const std::string	name = buffer.substr(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_not_of(' '));
-	const std::string	chan = buffer.substr(0, buffer.find_first_of(' '));
+	std::string	chan = buffer.substr(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_not_of(' '));
+	if (chan[0] != '#' || !chan[1])
+		return;
+	chan.erase(0, 1);
 	
-	if (buffer.size() > 0)
-		return ;
+	// if (buffer.size() > 0)
+	// {
+	// 	std::cout << "REMY DU TALMUD" << std::endl;
+	// 	return ;
+	// }
 
 	Client *target = NULL;
 	for (unsigned int i = 0; i < _clients.size(); ++i)
@@ -50,9 +56,13 @@ void	IRCServ::CMDinvite(Client *client, std::string &buffer)
 
 	for (unsigned int i = 0; i < _channels.size(); ++i)
 	{
+		std::cout << chan << " != " << _channels[i]->getChanName() << std::endl;
 		if (chan == _channels[i]->getChanName())
 		{
+			std::cout << "ADDGUEST" << std::endl;
 			_channels[i]->addGuest(target);
+			return;
 		}
 	}
+	std::cout << "CHANNEL NOT FOUND" << std::endl;
 }

@@ -6,14 +6,14 @@
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:30:11 by rdedola           #+#    #+#             */
-/*   Updated: 2025/11/06 13:29:03 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/02/06 11:20:33 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/Channel.hpp"
 
 Channel::Channel(Client *member, const std::string &name)
-	:	_chanName(name), _password(""), _topic(""), _limite(0), _invite_only(false)
+	:	_chanName(name), _password(""), _topic(""), _limite(0), _invite_only(false), _topicOpOnly(false)
 {
 	addMember(member);
 	_operators.push_back(member);
@@ -74,4 +74,3 @@ bool	Channel::isMemmber(const Client *client) const
 	}
 	return (false);
 }
-

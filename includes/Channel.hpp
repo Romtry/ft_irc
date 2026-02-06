@@ -6,7 +6,7 @@
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:19:38 by rdedola           #+#    #+#             */
-/*   Updated: 2026/02/04 14:21:21 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/02/06 11:51:15 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ class Channel
 		std::vector<Client *>		_guests;
 		unsigned int				_limite;
 		bool						_invite_only;
+		bool						_topicOpOnly;
 	
 	public:
 		Channel(Client *member, const std::string &name);
@@ -46,12 +47,14 @@ class Channel
 		unsigned int			getLimite()		const	{return (_limite);}
 		bool					getOperator(const Client *client) const;
 		bool					getInvite_only() const {return (_invite_only);}
+		bool					getTopicOpOnly() const {return (_topicOpOnly);}
 
 		void			setLimite(const unsigned int limite) {_limite = limite;}
 		void			setChanName(const std::string& chanName)	{_chanName = chanName;}
 		void			setPassword(const std::string& password)	{_password = password;}
 		void			setInvite_only(const bool b) {_invite_only = b;}
 		void			setTopic(const std::string& topic)		{_topic = topic;}
+		void			setTopicOpOnly(const bool b) {_topicOpOnly = b;}
 		void			addOperator(Client *client)	{_operators.push_back((client));}
 		void			addGuest(Client *client)	{_guests.push_back((client));}
 

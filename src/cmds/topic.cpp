@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   topic.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rothiery <rothiery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 11:46:26 by rothiery          #+#    #+#             */
-/*   Updated: 2026/01/22 11:46:30 by rothiery         ###   ########.fr       */
+/*   Updated: 2026/02/06 12:05:27 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,19 @@ void IRCServ::CMDtopic(const Client *client, std::string &buffer)
 	{
 		if (client->getChannels()[i]->getChanName() == currentChanel)
 		{
-			if (!buffer.empty())
-				client->getChannels()[i]->setTopic(buffer);
+			if (client->getChannels()[i]->getTopicOpOnly())
+			{
+				if (!buffer.empty())
+					client->getChannels()[i]->setTopic(buffer);
+				else
+					client->sendMessage(client->getChannels()[i]->getTopic());
+				return;
+			}
 			else
-				client->sendMessage(client->getChannels()[i]->getTopic());
-			return;
+			{
+				std::cout << ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()) << std::endl;
+				return ;
+			}
 		}
 	}
 	client->sendMessage(ERR_NOSUCHCHANNEL(currentChanel));

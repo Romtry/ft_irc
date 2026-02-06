@@ -44,3 +44,26 @@
 #define ERR_NEEDMOREPARAMS		"461 USER :Not enough parameters\r\n"
 # define ERR_ALREADYREGISTRED				"462 :Unauthorized command (already registered)\r\n"
 # define ERR_UNKNOWNCOMMAND(command)		"421 " + command + " :Unknown command\r\n"
+
+// ? RAW
+
+# define RAW_JOIN(nickname, username, hostname, channel)\
+	":" + nickname + "!~" + username + "@" + hostname + " JOIN :" + channel + "\r\n"
+
+# define RAW_PRIVMSG(sender, hostname, receiver, message) \
+	":" + sender + "!~" + sender + "@" + hostname + " PRIVMSG " + receiver + " " + message + "\r\n"
+
+
+
+
+
+
+
+# define RAW_BROADCAST(sender, username, hostname, channel, message) \
+":" + sender + "!~" + username + "@" + hostname + " PRIVMSG " + channel + " :" + message + "\r\n"
+
+# define RAW_PART(nickname, username, hostname, channel, reason) \
+":" + nickname + "!~" + username + "@" + hostname + " PART " + channel + " :" + reason + "\r\n"
+
+# define RAW_QUIT(nickname, username, hostname, message) \
+":" + nickname + "!~" + username + "@" + hostname + " QUIT :" + message + "\r\n"

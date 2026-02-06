@@ -33,6 +33,7 @@ class IRCServ
 {
 	public:
 		IRCServ(const unsigned int port, const std::string &password);
+		~IRCServ();
 
 		void Start();
 		void AddClient();

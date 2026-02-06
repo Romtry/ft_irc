@@ -48,6 +48,29 @@ IRCServ::IRCServ(const unsigned int port, const std::string &password)
 	_socket.push_back(servfds);
 }
 
+IRCServ::~IRCServ()
+{
+	for (unsigned int i = 0; i < _clients.size(); ++i)
+	{
+		for (unsigned int j = 0; j < _clients[i]->getChannels().size(); ++j)
+		{
+			_clients[i]->getChannels()[j]->removeMember(_clients[i]);
+			if (_clients[i]->getChannels()[j]->getClients().empty())
+			{
+				for (unsigned int k = 0; k < _channels.size(); ++k)
+				{
+					if (_channels[k] == _clients[i]->getChannels()[j])
+						delete (_channels[k]);
+				}
+			}
+			_clients[i]->getChannels().erase(_clients[i]->getChannels().begin() + i);
+		}
+		close(_clients[i]->getClientSocket());
+		delete (_clients[i]);
+	}
+	close(_socket[0].fd);
+}
+
 // ! ajouter password
 // ! hexchat working
 void IRCServ::Start()
@@ -77,31 +100,6 @@ void IRCServ::Start()
 			}
 		}
 	}
-	// for (unsigned int k = 0; k < _clients.size(); ++k)
-	// {
-	//
-	// }
-	// for (unsigned int i = 0; i < _clients[k]->getChannels().size(); ++i)
-	// {
-	// 	if (_clients[k]->getChannels()[i]->getChanName() == channelName)
-	// 	{
-	// 		_clients[k]->getChannels()[i]->removeMember(_clients[k]);
-	// 		if (_clients[k]->getChannels()[i]->getClients().empty())
-	// 		{
-	// 			for (unsigned int j = 0; j < _channels.size(); ++j)
-	// 			{
-	// 				if (_channels[j] == _clients[k]->getChannels()[i])
-	// 				{
-	// 					Channel *tmp = _channels[j];
-	// 					_channels.erase(_channels.begin() + j);
-	// 					delete (tmp);
-	// 				}
-	// 			}
-	// 		}
-	// 		_clients[k]->getChannels().erase(client->getChannels().begin() + i);
-	// 		return;
-	// 	}
-	// }
 	std::cout << "Server end" << std::endl;
 }
 

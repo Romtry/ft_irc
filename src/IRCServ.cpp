@@ -90,6 +90,23 @@ void IRCServ::Message(const unsigned int i)
 		std::cout << "User disconnected" << std::endl;
 		close (_socket[i].fd);
 		_socket.erase(_socket.begin() + i);
+		for (unsigned int j = 0; j < _clients[i - 1]->getChannels().size(); ++j)
+		{
+			_clients[i - 1]->getChannels()[j]->removeMember(_clients[i - 1]);
+			if (_clients[i - 1]->getChannels()[j]->getClients().empty())
+			{
+				for (unsigned int k = 0; k < _channels.size(); ++k)
+				{
+					if (_channels[k] == _clients[i - 1]->getChannels()[j])
+					{
+						Channel *tmp = _channels[k];
+						_channels.erase(_channels.begin() + k);
+						delete (tmp);
+					}
+				}
+			}
+			_clients[i - 1]->getChannels().erase(_clients[i - 1]->getChannels().begin() + j);
+		}
 		_clients.erase(_clients.begin() + i - 1);
 		return;
 	}

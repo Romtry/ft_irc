@@ -12,9 +12,20 @@
 
 #include "../includes/IRCServ.hpp"
 
+#include <csignal>
+
+bool isrunning = true;
+
+static void interrupt_handler(int signum)
+{
+	(void)signum;
+	isrunning = false;
+}
+
 IRCServ::IRCServ(const unsigned int port, const std::string &password)
 	:	_port(port), _password(password), _socket(0)
 {
+	signal(SIGINT, interrupt_handler);
 	int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 
 	sockaddr_in serverAddress;
@@ -47,10 +58,14 @@ void IRCServ::Start()
 	std::cout << "\e[33m██║██╔══██╗██║         ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝" RESET << std::endl;
 	std::cout << "\e[33m██║██║  ██║╚██████╗    ███████║███████╗██║  ██║ ╚████╔╝ " RESET << std::endl;
 	std::cout << "\e[33m╚═╝╚═╝  ╚═╝ ╚═════╝    ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  " RESET << std::endl;
-	while (true)
+	while (isrunning)
 	{
 		if (poll(_socket.data(), _socket.size(), 0) == -1)
-			throw std::runtime_error("Poll error");
+		{
+			if (isrunning)
+				std::runtime_error("Poll error");
+			return;
+		}
 		for (unsigned int i = 0; i < _socket.size(); ++i)
 		{
 			if (_socket[i].revents != 0)
@@ -62,6 +77,31 @@ void IRCServ::Start()
 			}
 		}
 	}
+	// for (unsigned int k = 0; k < _clients.size(); ++k)
+	// {
+	//
+	// }
+	// for (unsigned int i = 0; i < _clients[k]->getChannels().size(); ++i)
+	// {
+	// 	if (_clients[k]->getChannels()[i]->getChanName() == channelName)
+	// 	{
+	// 		_clients[k]->getChannels()[i]->removeMember(_clients[k]);
+	// 		if (_clients[k]->getChannels()[i]->getClients().empty())
+	// 		{
+	// 			for (unsigned int j = 0; j < _channels.size(); ++j)
+	// 			{
+	// 				if (_channels[j] == _clients[k]->getChannels()[i])
+	// 				{
+	// 					Channel *tmp = _channels[j];
+	// 					_channels.erase(_channels.begin() + j);
+	// 					delete (tmp);
+	// 				}
+	// 			}
+	// 		}
+	// 		_clients[k]->getChannels().erase(client->getChannels().begin() + i);
+	// 		return;
+	// 	}
+	// }
 	std::cout << "Server end" << std::endl;
 }
 
@@ -107,7 +147,9 @@ void IRCServ::Message(const unsigned int i)
 			}
 			_clients[i - 1]->getChannels().erase(_clients[i - 1]->getChannels().begin() + j);
 		}
+		Client *tmp = _clients[i - 1];
 		_clients.erase(_clients.begin() + i - 1);
+		delete (tmp);
 		return;
 	}
 	std::string tmp = buffer;

@@ -23,7 +23,6 @@ void IRCServ::CMDkick(Client *client, std::string &buffer)
 	std::string channelName = buffer.substr(0, buffer.find_first_of(' '));
 	if (channelName[0] != '#' || !channelName[1])
 		return;
-	channelName.erase(0, 1);
 	buffer.erase(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_not_of(' '));
 	const std::string nick = buffer.substr(0, buffer.find_first_of(' '));

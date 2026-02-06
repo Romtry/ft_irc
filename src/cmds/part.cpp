@@ -23,7 +23,6 @@ void IRCServ::CMDpart(Client *client, const std::string &buffer)
 	std::string channelName = buffer.substr(0, buffer.find_first_of(' '));
 	if (channelName[0] != '#' || !channelName[1])
 		return;
-	channelName.erase(0, 1);
 	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
 		if (client->getChannels()[i]->getChanName() == channelName)

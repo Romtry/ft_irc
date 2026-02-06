@@ -23,7 +23,6 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 	std::string channelName = buffer.substr(0, buffer.find_first_of(' '));
 	if (channelName[0] != '#' || !channelName[1])
 		return;
-	channelName.erase(0, 1);
 	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
 		if (client->getChannels()[i]->getChanName() == channelName)
@@ -44,7 +43,7 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 				{
 					client->addChannel(_channels[i]);
 					_channels[i]->addMember(client);
-					client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", "#" + channelName));
+					client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
 					return ;
 				}
 				else
@@ -55,7 +54,7 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 						{
 							client->addChannel(_channels[i]);
 							_channels[i]->addMember(client);
-							client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", "#" + channelName));
+							client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
 							_channels[i]->getGuests().erase(_channels[i]->getGuests().begin() + j);
 							return ;
 						}
@@ -72,6 +71,6 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 	Channel *tmp = new Channel(client, channelName);
 	tmp->addMember(client);
 	client->addChannel(tmp);
-	client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", "#" + channelName));
+	client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
 	_channels.push_back(tmp);
 }

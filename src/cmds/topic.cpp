@@ -32,25 +32,47 @@ void IRCServ::CMDtopic(const Client *client, std::string &buffer)
 		{
 			if (client->getChannels()[i]->getTopicOpOnly() && client->getChannels()[i]->getOperator(client))
 			{
+				std::cout << "OPONLY AND OP" << std::endl;
 				if (!buffer.empty())
+				{
 					client->getChannels()[i]->setTopic(buffer);
+					for (unsigned int j = 0; j < client->getChannels()[i]->getClients().size(); ++j)
+					{
+						client->getChannels()[i]->getClients()[j]->sendMessage(RAW_TOPIC(client->getNick(), client->getUser(), "nanachi", client->getChannels()[i]->getChanName(), buffer));
+					}
+				}
 				else
-					client->sendMessage(client->getChannels()[i]->getTopic());
+				{
+					if (client->getChannels()[i]->getTopic().empty())
+						client->sendMessage(RPL_NOTOPIC(client->getNick(), client->getChannels()[i]->getChanName()));
+					else
+						client->sendMessage(RPL_TOPIC(client->getNick(), client->getChannels()[i]->getChanName(), client->getChannels()[i]->getTopic()));
+				}
 				return;
 			}
-			else if (!client->getChannels()[i]->getTopicOpOnly())
+			if (!client->getChannels()[i]->getTopicOpOnly())
 			{
+				std::cout << "CHAN !OPONLY" << std::endl;
 				if (!buffer.empty())
+				{
 					client->getChannels()[i]->setTopic(buffer);
+					for (unsigned int j = 0; j < client->getChannels()[i]->getClients().size(); ++j)
+					{
+						client->getChannels()[i]->getClients()[j]->sendMessage(RAW_TOPIC(client->getNick(), client->getUser(), "nanachi", client->getChannels()[i]->getChanName(), buffer));
+					}
+				}
 				else
-					client->sendMessage(client->getChannels()[i]->getTopic());
+				{
+					if (client->getChannels()[i]->getTopic().empty())
+						client->sendMessage(RPL_NOTOPIC(client->getNick(), client->getChannels()[i]->getChanName()));
+					else
+						client->sendMessage(RPL_TOPIC(client->getNick(), client->getChannels()[i]->getChanName(), client->getChannels()[i]->getTopic()));
+				}
 				return;
 			}
-			else
-			{
-				std::cout << ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()) << std::endl;
-				return ;
-			}
+			std::cout << "GAY" << std::endl;
+			std::cout << ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()) << std::endl;
+			return ;
 		}
 	}
 	client->sendMessage(ERR_NOSUCHCHANNEL(currentChanel));

@@ -44,6 +44,8 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 					client->addChannel(_channels[i]);
 					_channels[i]->addMember(client);
 					client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
+					if (!_channels[i]->getTopic().empty())
+						client->sendMessage(RAW_TOPIC(client->getNick(), client->getUser(), "nanachi", client->getChannels()[i]->getChanName(), _channels[i]->getTopic()));
 					return ;
 				}
 				else
@@ -56,6 +58,8 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 							_channels[i]->addMember(client);
 							client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
 							_channels[i]->getGuests().erase(_channels[i]->getGuests().begin() + j);
+							if (!_channels[i]->getTopic().empty())
+								client->sendMessage(RAW_TOPIC(client->getNick(), client->getUser(), "nanachi", client->getChannels()[i]->getChanName(), _channels[i]->getTopic()));
 							return ;
 						}
 						else

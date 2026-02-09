@@ -43,30 +43,47 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 				{
 					client->addChannel(_channels[i]);
 					_channels[i]->addMember(client);
+					for (unsigned int k = 0; k < _channels[i]->getClients().size(); ++k)
+					{
+						if (_channels[i]->getClients()[k] == client)
+							continue;
+						_channels[i]->getClients()[k]->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
+					}
 					client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
+					std::string names;
+					for (unsigned int k = 0; k < _channels[i]->getClients().size(); ++k)
+					{
+						if (k == 0)
+							names += _channels[i]->getClients()[k]->getNick();
+						else
+							names += " " + _channels[i]->getClients()[k]->getNick();
+					}
+					std::cout << "names: " << names << std::endl;
+					client->sendMessage(RPL_NAMREPLY(client->getNick(), _channels[i]->getChanName(), names));
+					client->sendMessage(RPL_ENDOFNAMES(client->getNick(), _channels[i]->getChanName()));
 					if (!_channels[i]->getTopic().empty())
 						client->sendMessage(RAW_TOPIC(client->getNick(), client->getUser(), "nanachi", client->getChannels()[i]->getChanName(), _channels[i]->getTopic()));
 					return ;
 				}
-				else
+				for (unsigned int j = 0; j < _channels[i]->getGuests().size(); ++j)
 				{
-					for (unsigned int j = 0; j < _channels[i]->getGuests().size(); ++j)
+					if (_channels[i]->getGuests()[j] == client)
 					{
-						if (_channels[i]->getGuests()[j] == client)
-						{
-							client->addChannel(_channels[i]);
-							_channels[i]->addMember(client);
-							client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
-							_channels[i]->getGuests().erase(_channels[i]->getGuests().begin() + j);
-							if (!_channels[i]->getTopic().empty())
-								client->sendMessage(RAW_TOPIC(client->getNick(), client->getUser(), "nanachi", client->getChannels()[i]->getChanName(), _channels[i]->getTopic()));
-							return ;
-						}
-						else
-						{
-							client->sendMessage(ERR_INVITEONLYCHAN(client->getNick(), _channels[i]->getChanName()));
-						}
+						client->addChannel(_channels[i]);
+						_channels[i]->addMember(client);
+						client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
+						std::string names;
+						for (unsigned int k = 0; k < _channels[i]->getClients().size(); ++k)
+							names += _channels[i]->getClients()[k]->getNick();
+						std::cout << "names: " << names << std::endl;
+						client->sendMessage(RPL_NAMREPLY(client->getNick(), _channels[i]->getChanName(), names));
+						client->sendMessage(RPL_ENDOFNAMES(client->getNick(), _channels[i]->getChanName()));
+						_channels[i]->getGuests().erase(_channels[i]->getGuests().begin() + j);
+						if (!_channels[i]->getTopic().empty())
+							client->sendMessage(RAW_TOPIC(client->getNick(), client->getUser(), "nanachi", client->getChannels()[i]->getChanName(), _channels[i]->getTopic()));
+						return ;
 					}
+					client->sendMessage(ERR_INVITEONLYCHAN(client->getNick(), _channels[i]->getChanName()));
 				}
 			}
 			return;
@@ -76,5 +93,7 @@ void	IRCServ::CMDjoin(Client *client, const std::string &buffer)
 	tmp->addMember(client);
 	client->addChannel(tmp);
 	client->sendMessage(RAW_JOIN(client->getNick(), client->getUser(), "nanachi", channelName));
+	client->sendMessage(RPL_NAMREPLY(client->getNick(), tmp->getChanName(), client->getNick()));
+	client->sendMessage(RPL_ENDOFNAMES(client->getNick(), tmp->getChanName()));
 	_channels.push_back(tmp);
 }

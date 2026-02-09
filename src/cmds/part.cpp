@@ -27,6 +27,7 @@ void IRCServ::CMDpart(Client *client, const std::string &buffer)
 	{
 		if (client->getChannels()[i]->getChanName() == channelName)
 		{
+			client->sendMessage(RAW_PART(client->getNick(), client->getUser(), "nanachi", client->getChannels()[i]->getChanName(), "part"));
 			client->getChannels()[i]->removeMember(client);
 			ActuChan(client->getChannels()[i], client, i);
 			return;

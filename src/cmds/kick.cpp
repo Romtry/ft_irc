@@ -36,6 +36,7 @@ void IRCServ::CMDkick(Client *client, std::string &buffer)
 			{
 				if (client->getChannels()[i]->isMemmber(client))
 				{
+					client->sendMessage(RPL_KICK(client->getNick(), nick, channelName, "got kicked"));
 					client->getChannels()[i]->removeMember(client);
 					ActuChan(client->getChannels()[i], client, i);
 				}

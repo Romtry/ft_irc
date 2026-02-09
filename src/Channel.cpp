@@ -28,6 +28,7 @@ void	Channel::addMember(Client *member)
 
 void	Channel::removeMember(const Client *member)
 {
+	member->sendMessage(RAW_PART(member->getNick(), member->getUser(), "nanachi", _chanName, "part"));
 	for (unsigned int i = 0; i < _members.size(); ++i)
 	{
 		if (member == _members[i])
@@ -35,12 +36,13 @@ void	Channel::removeMember(const Client *member)
 			_members.erase(_members.begin() + i);
 			if (getOperator(member))
 			{
-				removeOperator(member);
 				if (_operators.empty() && !_members.empty())
 					addOperator(_members[0]);
 			}
 		}
+		_members[i]->sendMessage(RAW_QUIT(_members[i]->getNick(), _members[i]->getUser(), "nanachi", "quit"));
 	}
+
 }
 
 void Channel::removeOperator(const Client *client)

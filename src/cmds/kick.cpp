@@ -26,6 +26,8 @@ void IRCServ::CMDkick(Client *client, std::string &buffer)
 	buffer.erase(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_not_of(' '));
 	const std::string nick = buffer.substr(0, buffer.find_first_of(' '));
+	buffer.erase(0, buffer.find_first_of(' '));
+	buffer.erase(0, buffer.find_first_not_of(' '));
 	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
 		if (channelName == client->getChannels()[i]->getChanName())
@@ -35,19 +37,7 @@ void IRCServ::CMDkick(Client *client, std::string &buffer)
 				if (client->getChannels()[i]->isMemmber(client))
 				{
 					client->getChannels()[i]->removeMember(client);
-					if (client->getChannels()[i]->getClients().empty())
-					{
-						for (unsigned int j = 0; j < _channels.size(); ++j)
-						{
-							if (_channels[j] == client->getChannels()[i])
-							{
-								Channel *tmp = _channels[j];
-								_channels.erase(_channels.begin() + j);
-								delete (tmp);
-							}
-						}
-					}
-					client->getChannels().erase(client->getChannels().begin() + i);
+					ActuChan(client->getChannels()[i], client, i);
 				}
 			}
 			else

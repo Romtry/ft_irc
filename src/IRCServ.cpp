@@ -55,15 +55,7 @@ IRCServ::~IRCServ()
 		for (unsigned int j = 0; j < _clients[i]->getChannels().size(); ++j)
 		{
 			_clients[i]->getChannels()[j]->removeMember(_clients[i]);
-			if (_clients[i]->getChannels()[j]->getClients().empty())
-			{
-				for (unsigned int k = 0; k < _channels.size(); ++k)
-				{
-					if (_channels[k] == _clients[i]->getChannels()[j])
-						delete (_channels[k]);
-				}
-			}
-			_clients[i]->getChannels().erase(_clients[i]->getChannels().begin() + i);
+			ActuChan(_clients[i]->getChannels()[j], _clients[i], j);
 		}
 		close(_clients[i]->getClientSocket());
 		delete (_clients[i]);
@@ -131,19 +123,7 @@ void IRCServ::Message(const unsigned int i)
 		for (unsigned int j = 0; j < _clients[i - 1]->getChannels().size(); ++j)
 		{
 			_clients[i - 1]->getChannels()[j]->removeMember(_clients[i - 1]);
-			if (_clients[i - 1]->getChannels()[j]->getClients().empty())
-			{
-				for (unsigned int k = 0; k < _channels.size(); ++k)
-				{
-					if (_channels[k] == _clients[i - 1]->getChannels()[j])
-					{
-						Channel *tmp = _channels[k];
-						_channels.erase(_channels.begin() + k);
-						delete (tmp);
-					}
-				}
-			}
-			_clients[i - 1]->getChannels().erase(_clients[i - 1]->getChannels().begin() + j);
+			ActuChan(_clients[i - 1]->getChannels()[j], _clients[i - 1], j);
 		}
 		Client *tmp = _clients[i - 1];
 		_clients.erase(_clients.begin() + i - 1);
@@ -152,4 +132,21 @@ void IRCServ::Message(const unsigned int i)
 	}
 	std::string tmp = buffer;
 	parseCommand(_clients[i - 1], tmp);
+}
+
+void IRCServ::ActuChan(const Channel *channel, Client *client, const unsigned int index_chan)
+{
+	if (channel->getClients().empty())
+	{
+		for (unsigned int i = 0; i < _channels.size(); ++i)
+		{
+			if (_channels[i] == channel)
+			{
+				Channel *tmp = _channels[i];
+				_channels.erase(_channels.begin() + i);
+				delete (tmp);
+			}
+		}
+	}
+	client->getChannels().erase(client->getChannels().begin() + index_chan);
 }

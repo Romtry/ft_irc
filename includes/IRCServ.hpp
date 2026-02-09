@@ -48,9 +48,10 @@ class IRCServ
 		void		CMDjoin(Client *client, const std::string &buffer);
 		static void CMDtopic(const Client *client, std::string &buffer) ;
 
-		void CMDpart(Client *client, const std::string &buffer);
+		void		CMDpart(Client *client, const std::string &buffer);
+		void		ActuChan(const Channel *channel, Client *client, unsigned int index_chan);
 
-		void CMDkick(Client *client, std::string &buffer);
+		void		CMDkick(Client *client, std::string &buffer);
 		void		CMDprivmsg(const Client *client, std::string &buffer) const;
 		void		CMDmode(const Client *client, std::string &buffer);
 		void		CMDinvite(Client *client, std::string &buffer);

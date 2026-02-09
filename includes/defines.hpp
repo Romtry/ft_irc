@@ -64,6 +64,29 @@
 # define RAW_TOPIC(nickname, username, hostname, channel, topic) \
 ":" + nickname + "!~" + username + "@" + hostname + " TOPIC " + channel + " :" + topic + "\r\n"
 
+# define RAW_PART(nickname, username, hostname, channel, reason) \
+":" + nickname + "!~" + username + "@" + hostname + " PART " + channel + " :" + reason + "\r\n"
+
+# define RPL_KICK(kicker, target, channel, comment) \
+":" + std::string(kicker) + "!~" + std::string(kicker) + "@host KICK " + std::string(channel) + " " + std::string(target) + " :" + std::string(comment) + "\r\n"
+
+# define RPL_NAMREPLY(target, channel, names) \
+":ft_irc.nanachi 353 " + target + " = " + channel + " :" + names + "\r\n"
+
+# define RAW_QUIT(nickname, username, hostname, message) \
+":" + nickname + "!~" + username + "@" + hostname + " QUIT :" + message + "\r\n"
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -86,17 +109,11 @@
 # define RAW_BROADCAST(sender, username, hostname, channel, message) \
 ":" + sender + "!~" + username + "@" + hostname + " PRIVMSG " + channel + " :" + message + "\r\n"
 
-# define RAW_PART(nickname, username, hostname, channel, reason) \
-":" + nickname + "!~" + username + "@" + hostname + " PART " + channel + " :" + reason + "\r\n"
 
-# define RAW_QUIT(nickname, username, hostname, message) \
-":" + nickname + "!~" + username + "@" + hostname + " QUIT :" + message + "\r\n"
 
 # define RAW_NICKNAME(oldNick, newNick, username, hostname)	\
 ":" + oldNick + "!" + username + "@" + hostname + " NICK :" + newNick + "\r\n"
 
-# define RPL_NAMREPLY(target, channel, names) \
-":ft_irc.nanachi 353 " + target + " = " + channel + " :" + names + "\r\n"
 
 # define RPL_ENDOFNAMES(target, channel) \
 ":ft_irc.nanachi 366 " + target + " " + channel + " :End of /NAMES list.\r\n"
@@ -117,5 +134,3 @@
 # define INVITE_MESSAGE(inviter, invited, channel) \
 ":" + std::string(inviter) + "!~" + inviter + "@host INVITE " + std::string(invited) + " :" + std::string(channel) + "\r\n"
 
-# define RPL_KICK(kicker, target, channel, comment) \
-":" + std::string(kicker) + "!~" + std::string(kicker) + "@host KICK " + std::string(channel) + " " + std::string(target) + " :" + std::string(comment) + "\r\n"

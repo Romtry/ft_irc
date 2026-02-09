@@ -25,14 +25,12 @@ void IRCServ::CMDtopic(const Client *client, std::string &buffer)
 		return;
 	buffer.erase(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_not_of(' '));
-	std::cout << "HERE" << std::endl;
 	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
 		if (client->getChannels()[i]->getChanName() == currentChanel)
 		{
 			if (client->getChannels()[i]->getTopicOpOnly() && client->getChannels()[i]->getOperator(client))
 			{
-				std::cout << "OPONLY AND OP" << std::endl;
 				if (!buffer.empty())
 				{
 					client->getChannels()[i]->setTopic(buffer);
@@ -70,7 +68,6 @@ void IRCServ::CMDtopic(const Client *client, std::string &buffer)
 				}
 				return;
 			}
-			std::cout << "GAY" << std::endl;
 			std::cout << ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()) << std::endl;
 			return ;
 		}

@@ -49,20 +49,17 @@ void	IRCServ::CMDinvite(Client *client, std::string &buffer)
 
 	if (!target)
 	{
-		// ! put error msg !!
-		std::cout << "NO TARGET" << std::endl;
+		client->sendMessage(ERR_NOSUCHNICK(name));
 		return ;
 	}
 
 	for (unsigned int i = 0; i < _channels.size(); ++i)
 	{
-		std::cout << chan << " != " << _channels[i]->getChanName() << std::endl;
 		if (chan == _channels[i]->getChanName())
 		{
-			std::cout << "ADDGUEST" << std::endl;
 			_channels[i]->addGuest(target);
 			return;
 		}
 	}
-	std::cout << "CHANNEL NOT FOUND" << std::endl;
+	client->sendMessage(ERR_NOSUCHNICK(chan));
 }

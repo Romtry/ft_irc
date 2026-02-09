@@ -20,7 +20,10 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 		case 0:
 		{
 			if (!channel->getOperator(client))
+			{
+				client->sendMessage(ERR_CHANOPRIVSNEEDED(channel->getChanName()));
 				return;
+			}
 			if (sign == '+')
 				channel->setInvite_only(true);
 			else
@@ -31,7 +34,10 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 		case 1:
 		{
 			if (!channel->getOperator(client))
+			{
+				client->sendMessage(ERR_CHANOPRIVSNEEDED(channel->getChanName()));
 				return;
+			}
 			if (sign == '-')
 			{
 				channel->setLimite(0);
@@ -92,21 +98,25 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 						return;
 					}
 				}
-				// snedmessage err
+				client->sendMessage(ERR_NOSUCHNICK(arg));
+				return;
 			}
+			client->sendMessage(ERR_CHANOPRIVSNEEDED(channel->getChanName()));
 			return;
 		}
 		// t
 		case 3:
 		{
 			if (!channel->getOperator(client))
+			{
+				client->sendMessage(ERR_CHANOPRIVSNEEDED(channel->getChanName()));
 				return;
+			}
 			if (sign == '+')
 				channel->setTopicOpOnly(1);
 			else
 				channel->setTopicOpOnly(0);
 			return;
-
 		}
 		// k
 		case 4:
@@ -115,12 +125,11 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 		}
 		default:
 		{
-			//sendmessage err
 		}
 	}
 }
 
-void	mode(const Client *Client, Channel *channel, const char sign, const std::string modes, std::string &args)
+void	mode(const Client *client, Channel *channel, const char sign, const char *modes, std::string &args)
 {
 	char list[] = {'i', 'l', 'o', 't', 'k'};
 	for (unsigned int i = 0; modes[i]; ++i)
@@ -130,14 +139,14 @@ void	mode(const Client *Client, Channel *channel, const char sign, const std::st
 		{
 			if (modes[i] == list[j])
 			{
-				mode_exec(Client, sign, j, channel, args);
+				mode_exec(client, sign, j, channel, args);
 				break;
 			}
 			++j;
 		}
 		if (!list[j])
 		{
-			//sedmessage err
+			client->sendMessage(ERR_UNKNOWNMODE(modes[i]));
 		}
 	}
 }
@@ -157,19 +166,18 @@ void IRCServ::CMDmode(const Client *client, std::string &buffer)
 	const std::string modes = buffer.substr(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_not_of(' '));
-	if (modes.size() < 2 || (modes[0] != '+' && modes[0] != '-'))
+	if (modes.size() < 2)
+		return;
+	if ((modes[0] != '+' && modes[0] != '-'))
 	{
-		// sendmessage err
+		client->sendMessage(ERR_UNKNOWNMODE(modes[0]));
 		return;
 	}
 	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	{
 		if (client->getChannels()[i]->getChanName() == channelName)
 		{
-			if (client->getChannels()[i]->getOperator(client))
-				mode(client, client->getChannels()[i], modes[0], modes.substr(1, modes.size() - 1), buffer);
-			else
-				//sendmessage err
+			mode(client, client->getChannels()[i], modes[0], modes.substr(1, modes.size() - 1).c_str(), buffer);
 			return;
 		}
 	}

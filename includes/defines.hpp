@@ -40,10 +40,13 @@
 // ? INVITE
 #define ERR_INVITEONLYCHAN(nick, channel)	"473 " + nick + "#" + channel + " :Cannot join channel (+i)\r\n"
 
+// ? MODE
+#define ERR_UNKNOWNMODE(char)		(std::string("472 ") + (char) + " :is unknown mode char to me\r\n")
+
 // ? OTHER
-#define ERR_NEEDMOREPARAMS		"461 USER :Not enough parameters\r\n"
-# define ERR_ALREADYREGISTRED				"462 :Unauthorized command (already registered)\r\n"
-# define ERR_UNKNOWNCOMMAND(command)		"421 " + command + " :Unknown command\r\n"
+# define ERR_NEEDMOREPARAMS							"461 USER :Not enough parameters\r\n"
+# define ERR_ALREADYREGISTRED						"462 :Unauthorized command (already registered)\r\n"
+# define ERR_UNKNOWNCOMMAND(command)				"421 " + command + " :Unknown command\r\n"
 
 // ? RAW
 

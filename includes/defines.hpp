@@ -76,43 +76,41 @@
 # define RAW_QUIT(nickname, username, hostname, message) \
 ":" + nickname + "!~" + username + "@" + hostname + " QUIT :" + message + "\r\n"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# define RAW_BROADCAST(sender, username, hostname, channel, message) \
-":" + sender + "!~" + username + "@" + hostname + " PRIVMSG " + channel + " :" + message + "\r\n"
-
-
-
 # define RAW_NICKNAME(oldNick, newNick, username, hostname)	\
 ":" + oldNick + "!" + username + "@" + hostname + " NICK :" + newNick + "\r\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # define RPL_ENDOFNAMES(target, channel) \

@@ -82,20 +82,20 @@ void IRCServ::execCommand(Client *client)
 	// client->printToken();
 	// for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 	// 	std::cout << "client " << client->getNick() << " channels = " << client->getChannels()[i]->getChanName() << " i: " << i << std::endl;
-	if (client->getChannels().empty())
-	{
-		std::cout << "no more channels" << std::endl;
-	}
-	else
-	{
-		for (unsigned int i = 0; i < client->getChannels().size(); ++i)
-		{
-			std::cout << "chan: " << client->getChannels()[i]->getChanName() << std::endl;
-			for (unsigned int j = 0; j < client->getChannels()[i]->getClients().size(); ++j)
-			{
-				std::cout << "client[" << j << "]: " << client->getChannels()[i]->getClients()[j]->getNick() << std::endl;
-			}
-		}
-	}
+	// if (client->getChannels().empty())
+	// {
+	// 	std::cout << "no more channels" << std::endl;
+	// }
+	// else
+	// {
+	// 	for (unsigned int i = 0; i < client->getChannels().size(); ++i)
+	// 	{
+	// 		std::cout << "chan: " << client->getChannels()[i]->getChanName() << std::endl;
+	// 		for (unsigned int j = 0; j < client->getChannels()[i]->getClients().size(); ++j)
+	// 		{
+	// 			std::cout << "client[" << j << "]: " << client->getChannels()[i]->getClients()[j]->getNick() << std::endl;
+	// 		}
+	// 	}
+	// }
 	client->clearToken();
 }

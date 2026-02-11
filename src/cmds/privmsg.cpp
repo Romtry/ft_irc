@@ -22,14 +22,14 @@ void IRCServ::CMDprivmsg(const Client *client, std::string &buffer) const
 	if (buffer[0] == '#')
 	{
 		std::string channelName = buffer.substr(0, buffer.find_first_of(' '));
+		buffer.erase(0, buffer.find_first_of(' '));
+		buffer.erase(0, buffer.find_first_not_of(' '));
 		if (channelName[0] != '#' || !channelName[1])
 			return;
 		for (unsigned int i = 0; i < client->getChannels().size(); ++i)
 		{
 			if (client->getChannels()[i]->getChanName() == channelName)
 			{
-				buffer.erase(0, buffer.find_first_of(' '));
-				buffer.erase(0, buffer.find_first_not_of(' '));
 				for (unsigned int j = 0; j < client->getChannels()[i]->getClients().size(); ++j)
 				{
 					if (client->getChannels()[i]->getClients()[j]->getNick() != client->getNick())

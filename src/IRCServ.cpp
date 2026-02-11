@@ -50,15 +50,17 @@ IRCServ::IRCServ(const unsigned int port, const std::string &password)
 
 IRCServ::~IRCServ()
 {
-	for (unsigned int i = 0; i < _clients.size(); ++i)
+	while (!_clients.empty())
 	{
-		for (unsigned int j = 0; j < _clients[i]->getChannels().size(); ++j)
+		std::cout << "clientsize: " << _clients.size() << std::endl;
+		while (!_clients[0]->getChannels().empty())
 		{
-			_clients[i]->getChannels()[j]->removeMember(_clients[i]);
-			ActuChan(_clients[i]->getChannels()[j], _clients[i], j);
+			_clients[0]->getChannels()[0]->removeMember(_clients[0]);
+			ActuChan(_clients[0]->getChannels()[0], _clients[0], 0);
 		}
-		close(_clients[i]->getClientSocket());
-		delete (_clients[i]);
+		close(_clients[0]->getClientSocket());
+		_clients.erase(_clients.begin());
+		delete (_clients[0]);
 	}
 	close(_socket[0].fd);
 }
@@ -120,10 +122,10 @@ void IRCServ::Message(const unsigned int i)
 		std::cout << "User disconnected" << std::endl;
 		close (_socket[i].fd);
 		_socket.erase(_socket.begin() + i);
-		for (unsigned int j = 0; j < _clients[i - 1]->getChannels().size(); ++j)
+		while (!_clients[i - 1]->getChannels().empty())
 		{
-			_clients[i - 1]->getChannels()[j]->removeMember(_clients[i - 1]);
-			ActuChan(_clients[i - 1]->getChannels()[j], _clients[i - 1], j);
+			_clients[i - 1]->getChannels()[0]->removeMember(_clients[i - 1]);
+			ActuChan(_clients[i - 1]->getChannels()[0], _clients[i - 1], 0);
 		}
 		Client *tmp = _clients[i - 1];
 		_clients.erase(_clients.begin() + i - 1);

@@ -37,6 +37,9 @@ class Channel
 		void			addMember(Client *member);
 		void			removeMember(const Client *member);
 		void			removeOperator(const Client *client);
+
+		std::vector<Client *> getOperators();
+
 		bool			isMemmber(const Client *client) const;
 
 		const std::vector<Client *>		&getClients()	const	{return (_members);}

@@ -57,6 +57,11 @@ void Channel::removeOperator(const Client *client)
 	}
 }
 
+std::vector<Client *>	Channel::getOperators()
+{
+	return (_operators);
+}
+
 bool Channel::getOperator(const Client *client) const
 {
 	for (unsigned int i = 0; i < _operators.size(); ++i)

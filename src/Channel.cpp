@@ -40,7 +40,7 @@ void	Channel::removeMember(const Client *member)
 					addOperator(_members[0]);
 			}
 		}
-		_members[i]->sendMessage(RAW_QUIT(_members[i]->getNick(), _members[i]->getUser(), "nanachi", "quit"));
+		_members[i]->sendMessage(RAW_QUIT(member->getNick(), member->getUser(), "nanachi", "quit"));
 	}
 
 }

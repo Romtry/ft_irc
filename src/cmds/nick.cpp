@@ -64,12 +64,12 @@ void IRCServ::CMDnick(Client *client, const std::string &buffer) const
 			already_send.push_back(client->getChannels()[i]->getClients()[j]);
 		}
 	}
-	std::cout << "NICK CHANGED" << std::endl;
+	// std::cout << "NICK CHANGED" << std::endl;
 	client->sendMessage(RAW_NICKNAME(client->getNick(), tmp, client->getUser(), "nanachi"));
 	client->setNick(tmp);
 	if (client->getPass() && !client->getUser().empty())
 	{
-		std::cout << "REGISTERED" << std::endl;
+		// std::cout << "REGISTERED" << std::endl;
 		client->setIsRegister(true);
 	}
 }

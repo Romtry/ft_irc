@@ -50,7 +50,7 @@ void IRCServ::CMDtopic(const Client *client, std::string &buffer)
 			}
 			if (!client->getChannels()[i]->getTopicOpOnly())
 			{
-				std::cout << "CHAN !OPONLY" << std::endl;
+				// std::cout << "CHAN !OPONLY" << std::endl;
 				if (!buffer.empty())
 				{
 					client->getChannels()[i]->setTopic(buffer);

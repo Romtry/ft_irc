@@ -20,7 +20,6 @@ void	IRCServ::CMDinvite(Client *client, std::string &buffer)
 		client->sendMessage(ERR_NOTREGISTERED);
 		return ;
 	}
-	std::cout << std::endl << "IN INVITE" << std::endl;
 	const std::string	name = buffer.substr(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_of(' '));
 	buffer.erase(0, buffer.find_first_not_of(' '));
@@ -30,12 +29,6 @@ void	IRCServ::CMDinvite(Client *client, std::string &buffer)
 	if (chan[0] != '#' || !chan[1])
 		return;
 	chan.erase(0, 1);
-	
-	// if (buffer.size() > 0)
-	// {
-	// 	std::cout << "REMY DU TALMUD" << std::endl;
-	// 	return ;
-	// }
 
 	Client *target = NULL;
 	for (unsigned int i = 0; i < _clients.size(); ++i)

@@ -68,7 +68,7 @@ void IRCServ::CMDuser(Client *client)
 	client->setUser(username);
 	if (client->getPass() && !client->getNick().empty())
 	{
-		std::cout << "REGISTERED" << std::endl;
+		// std::cout << "REGISTERED" << std::endl;
 		client->setIsRegister(true);
 	}
 }

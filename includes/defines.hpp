@@ -79,56 +79,56 @@
 # define RAW_NICKNAME(oldNick, newNick, username, hostname)	\
 ":" + oldNick + "!" + username + "@" + hostname + " NICK :" + newNick + "\r\n"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# define RPL_ENDOFNAMES(target, channel) \
-":ft_irc.nanachi 366 " + target + " " + channel + " :End of /NAMES list.\r\n"
-
 # define RAW_MODE_ADDOP(sender, username, hostname, channel, target) \
 (":" + sender + "!~" + username + "@" + hostname + " MODE " + channel + " +o " + target + "\r\n")
 
 # define RAW_MODE_REMOP(sender, username, hostname, channel, target) \
 (":" + sender + "!~" + username + "@" + hostname + " MODE " + channel + " -o " + target + "\r\n")
 
+# define RPL_ENDOFNAMES(target, channel) \
+":ft_irc.nanachi 366 " + target + " " + channel + " :End of /NAMES list.\r\n"
+
 # define RAW_MODE(nickname, username, hostname, channel, mode, arg) \
 ":" + nickname + "!~" + username + "@" + hostname + " MODE " + channel + " " + mode + (arg.empty() ? "" : " " + arg) + "\r\n"
-
 
 # define RPL_INVITING(inviter, invited, channel) \
 ":ft_irc.nanachi 341 " + std::string(inviter) + " " + std::string(invited) + " " + std::string(channel) + "\r\n"
 
 # define INVITE_MESSAGE(inviter, invited, channel) \
 ":" + std::string(inviter) + "!~" + inviter + "@host INVITE " + std::string(invited) + " :" + std::string(channel) + "\r\n"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

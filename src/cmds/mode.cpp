@@ -25,9 +25,15 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 				return;
 			}
 			if (sign == '+')
+			{
 				channel->setInvite_only(true);
+				channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "+i", std::string("")));
+			}
 			else
+			{
 				channel->setInvite_only(false);
+				channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "-i", std::string("")));
+			}
 			return;
 		}
 		// l
@@ -41,6 +47,7 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 			if (sign == '-')
 			{
 				channel->setLimite(0);
+				channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "-l", std::string("")));
 				return;
 			}
 			if (args.empty())
@@ -66,6 +73,7 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 				return;
 			}
 			channel->setLimite(num);
+			channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "+l", std::string("")));
 			return;
 		}
 		// o
@@ -113,9 +121,15 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 				return;
 			}
 			if (sign == '+')
+			{
 				channel->setTopicOpOnly(1);
+				channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "+t", std::string("")));
+			}
 			else
+			{
 				channel->setTopicOpOnly(0);
+				channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "-t", std::string("")));
+			}
 			return;
 		}
 		// k

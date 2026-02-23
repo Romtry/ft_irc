@@ -76,3 +76,11 @@ bool	Channel::isMemmber(const Client *client) const
 	}
 	return (false);
 }
+
+void Channel::sendAll(const std::string &msg) const
+{
+	for (unsigned int i = 0; i < _members.size(); ++i)
+	{
+		_members[i]->sendMessage(msg);
+	}
+}

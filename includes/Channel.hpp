@@ -49,6 +49,7 @@ class Channel
 		bool					getInvite_only() const {return (_invite_only);}
 		bool					getTopicOpOnly() const {return (_topicOpOnly);}
 
+		void			sendAll(const std::string &msg) const;
 		void			setLimite(const unsigned int limite) {_limite = limite;}
 		void			setChanName(const std::string& chanName)	{_chanName = chanName;}
 		void			setPassword(const std::string& password)	{_password = password;}

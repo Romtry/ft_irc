@@ -94,6 +94,7 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 							if (channel->getOperator(target))
 								return ;
 							channel->addOperator(target);
+							channel->sendAll(RAW_MODE_ADDOP(client->getNick(), client->getUser(), "nanchi", channel->getChanName(), target->getNick()));
 						}
 						else
 						{
@@ -102,6 +103,7 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 								return ;
 							}
 							channel->removeOperator(target);
+							channel->sendAll(RAW_MODE_REMOP(client->getNick(), client->getUser(), "nanchi", channel->getChanName(), target->getNick()));
 						}
 						return;
 					}

@@ -45,12 +45,13 @@ void	IRCServ::CMDinvite(Client *client, std::string &buffer)
 		client->sendMessage(ERR_NOSUCHNICK(name));
 		return ;
 	}
-
 	for (unsigned int i = 0; i < _channels.size(); ++i)
 	{
-		if (chan == _channels[i]->getChanName())
+		if ("#" + chan == _channels[i]->getChanName())
 		{
 			_channels[i]->addGuest(target);
+			client->sendMessage(RPL_INVITING(client->getNick(), target->getNick(), _channels[i]->getChanName()));
+			target->sendMessage(INVITE_MESSAGE(client->getNick(), target->getNick(), _channels[i]->getChanName()));
 			return;
 		}
 	}

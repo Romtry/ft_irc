@@ -135,7 +135,26 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 		// k
 		case 4:
 		{
-
+			if (!channel->getOperator(client))
+			{
+				client->sendMessage(ERR_CHANOPRIVSNEEDED(channel->getChanName()));
+				return;
+			}
+			const std::string arg = args.substr(0, args.find_first_of(' '));
+			args.erase(0, args.find_first_of(' '));
+			args.erase(0, args.find_first_not_of(' '));
+			if (sign == '+')
+			{
+				if (arg.empty())
+					return;
+				channel->setPassword(arg);
+				channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "+k", arg));
+			}
+			else
+			{
+				channel->setPassword("");
+				channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "-k", std::string("")));
+			}
 		}
 		default:
 		{

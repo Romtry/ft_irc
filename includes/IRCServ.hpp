@@ -45,7 +45,7 @@ class IRCServ
 		void		CMDpass(Client *client, const std::string &buffer) const;
 		void		CMDnick(Client *client, const std::string &buffer) const;
 		static void CMDuser(Client *client);
-		void		CMDjoin(Client *client, const std::string &buffer);
+		void		CMDjoin(Client *client, std::string &buffer);
 		static void CMDtopic(const Client *client, std::string &buffer) ;
 
 		void		CMDpart(Client *client, const std::string &buffer);

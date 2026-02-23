@@ -68,7 +68,7 @@ void IRCServ::CMDtopic(const Client *client, std::string &buffer)
 				}
 				return;
 			}
-			std::cout << ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()) << std::endl;
+			client->sendMessage(ERR_CHANOPRIVSNEEDED(client->getChannels()[i]->getChanName()));
 			return ;
 		}
 	}

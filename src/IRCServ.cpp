@@ -52,15 +52,15 @@ IRCServ::~IRCServ()
 {
 	while (!_clients.empty())
 	{
-		std::cout << "clientsize: " << _clients.size() << std::endl;
 		while (!_clients[0]->getChannels().empty())
 		{
 			_clients[0]->getChannels()[0]->removeMember(_clients[0]);
 			ActuChan(_clients[0]->getChannels()[0], _clients[0], 0);
 		}
 		close(_clients[0]->getClientSocket());
+		const Client *tmp = _clients[0];
 		_clients.erase(_clients.begin());
-		delete (_clients[0]);
+		delete (tmp);
 	}
 	close(_socket[0].fd);
 }

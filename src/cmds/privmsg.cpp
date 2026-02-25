@@ -22,8 +22,7 @@ void IRCServ::CMDprivmsg(const Client *client, std::string &buffer) const
 	if (buffer[0] == '#')
 	{
 		std::string channelName = buffer.substr(0, buffer.find_first_of(' '));
-		buffer.erase(0, buffer.find_first_of(' '));
-		buffer.erase(0, buffer.find_first_not_of(' '));
+		nextArg(buffer);
 		if (channelName[0] != '#' || !channelName[1])
 			return;
 		for (unsigned int i = 0; i < client->getChannels().size(); ++i)
@@ -43,12 +42,11 @@ void IRCServ::CMDprivmsg(const Client *client, std::string &buffer) const
 	else
 	{
 		std::string nickname = buffer.substr(0, buffer.find_first_of(' '));
+		nextArg(buffer);
 		for (unsigned int i = 0; i < _clients.size(); ++i)
 		{
 			if (nickname == _clients[i]->getNick())
 			{
-				buffer.erase(0, buffer.find_first_of(' '));
-				buffer.erase(0, buffer.find_first_not_of(' '));
 				_clients[i]->sendMessage(RAW_PRIVMSG(client->getNick(), "nanachi", nickname, buffer));
 				return;
 			}

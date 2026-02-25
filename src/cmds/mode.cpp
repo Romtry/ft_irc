@@ -196,11 +196,9 @@ void IRCServ::CMDmode(const Client *client, std::string &buffer)
 	std::string channelName = buffer.substr(0, buffer.find_first_of(' '));
 	if (channelName[0] != '#' || !channelName[1])
 		return;
-	buffer.erase(0, buffer.find_first_of(' '));
-	buffer.erase(0, buffer.find_first_not_of(' '));
+	nextArg(buffer);
 	const std::string modes = buffer.substr(0, buffer.find_first_of(' '));
-	buffer.erase(0, buffer.find_first_of(' '));
-	buffer.erase(0, buffer.find_first_not_of(' '));
+	nextArg(buffer);
 	if (modes.size() < 2)
 		return;
 	if ((modes[0] != '+' && modes[0] != '-'))

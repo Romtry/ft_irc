@@ -21,11 +21,9 @@ void	IRCServ::CMDinvite(Client *client, std::string &buffer)
 		return ;
 	}
 	const std::string	name = buffer.substr(0, buffer.find_first_of(' '));
-	buffer.erase(0, buffer.find_first_of(' '));
-	buffer.erase(0, buffer.find_first_not_of(' '));
+	nextArg(buffer);
 	std::string	chan = buffer.substr(0, buffer.find_first_of(' '));
-	buffer.erase(0, buffer.find_first_of(' '));
-	buffer.erase(0, buffer.find_first_not_of(' '));
+	nextArg(buffer);
 	if (chan[0] != '#' || !chan[1])
 		return;
 	chan.erase(0, 1);

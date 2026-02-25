@@ -33,14 +33,14 @@ void	Channel::removeMember(const Client *member)
 		if (member == _members[i])
 		{
 			_members.erase(_members.begin() + i);
-			if (getOperator(member))
+			removeOperator(member);
+			if (_operators.empty() && !_members.empty())
 			{
-				if (_operators.empty() && !_members.empty())
-					addOperator(_members[0]);
+				addOperator(_members[0]);
+				sendAll(RAW_MODE_ADDOP(member->getNick(), member->getUser(), "nanchi", getChanName(), _members[0]->getNick()));
 			}
 		}
-		else
-			_members[i]->sendMessage(RAW_QUIT(member->getNick(), member->getUser(), "nanachi", "quit"));
+		_members[i]->sendMessage(RAW_QUIT(member->getNick(), member->getUser(), "nanachi", "quit"));
 	}
 }
 

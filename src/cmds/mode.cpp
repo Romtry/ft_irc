@@ -73,7 +73,7 @@ void mode_exec(const Client *client, const unsigned int sign, const unsigned int
 				return;
 			}
 			channel->setLimite(num);
-			channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "+l", std::string("")));
+			channel->sendAll(RAW_MODE(client->getNick(), client->getUser(), "nanachi", channel->getChanName(), "+l", arg));
 			return;
 		}
 		// o

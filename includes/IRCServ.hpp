@@ -42,6 +42,9 @@ class IRCServ
 		void		parseCommand(Client *client, const std::string &buffer);
 		void		execCommand(Client *client);
 
+		Channel 	*findChannel(const std::string &chanName) const;
+		int			findChannel(const Channel *Channel) const;
+
 		static void nextArg(std::string &buffer);
 
 		void		CMDpass(Client *client, const std::string &buffer) const;

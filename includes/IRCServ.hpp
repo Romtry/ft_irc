@@ -35,12 +35,12 @@ class IRCServ
 		IRCServ(const unsigned int port, const std::string &password);
 		~IRCServ();
 
-		void Start();
-		void AddClient();
-		void Message(unsigned int i);
+		void		Start();
+		void		AddClient();
+		void		Message(unsigned int i);
 
-		void parseCommand(Client *client, const std::string &buffer);
-		void execCommand(Client *client);
+		void		parseCommand(Client *client, const std::string &buffer);
+		void		execCommand(Client *client);
 
 		void		CMDpass(Client *client, const std::string &buffer) const;
 		void		CMDnick(Client *client, const std::string &buffer) const;
@@ -50,6 +50,8 @@ class IRCServ
 
 		void		CMDpart(Client *client, const std::string &buffer);
 		void		ActuChan(const Channel *channel, Client *client, unsigned int index_chan);
+
+
 
 		void		CMDkick(Client *client, std::string &buffer);
 		void		CMDprivmsg(const Client *client, std::string &buffer) const;

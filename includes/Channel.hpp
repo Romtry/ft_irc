@@ -47,20 +47,20 @@ class Channel
 		const std::string				&getChanName()	const	{return (_chanName);}
 		const std::string				&getPassword()	const	{return (_password);}
 		const std::string				&getTopic()		const	{return (_topic);}
-		unsigned int			getLimite()		const	{return (_limite);}
-		bool					getOperator(const Client *client) const;
-		bool					getInvite_only() const {return (_invite_only);}
-		bool					getTopicOpOnly() const {return (_topicOpOnly);}
+		unsigned int					getLimite()		const	{return (_limite);}
+		bool							getOperator(const Client *client) const;
+		bool							getInvite_only() const {return (_invite_only);}
+		bool							getTopicOpOnly() const {return (_topicOpOnly);}
 
-		void			sendAll(const std::string &msg) const;
-		void			setLimite(const unsigned int limite) {_limite = limite;}
-		void			setChanName(const std::string& chanName)	{_chanName = chanName;}
-		void			setPassword(const std::string& password)	{_password = password;}
-		void			setInvite_only(const bool b) {_invite_only = b;}
-		void			setTopic(const std::string& topic)		{_topic = topic;}
-		void			setTopicOpOnly(const bool b) {_topicOpOnly = b;}
-		void			addOperator(Client *client)	{_operators.push_back((client));}
-		void			addGuest(Client *client)	{_guests.push_back((client));}
+		void							sendAll(const std::string &msg) const;
+		void							setLimite(const unsigned int limite) {_limite = limite;}
+		void							setChanName(const std::string& chanName)	{_chanName = chanName;}
+		void							setPassword(const std::string& password)	{_password = password;}
+		void							setInvite_only(const bool b) {_invite_only = b;}
+		void							setTopic(const std::string& topic)		{_topic = topic;}
+		void							setTopicOpOnly(const bool b) {_topicOpOnly = b;}
+		void							addOperator(Client *client)	{_operators.push_back((client));}
+		void							addGuest(Client *client)	{_guests.push_back((client));}
 
 	
 };

@@ -37,8 +37,11 @@
 // ? OPERATOR
 #define ERR_CHANOPRIVSNEEDED(channel)	"482 " + channel + " :You're not channel operator\r\n"
 
+// ? FULL
+# define ERR_CHANNELISFULL(channel)		"471 " + channel + " :Cannot join channel (+l)\r\n"
+
 // ? INVITE
-#define ERR_INVITEONLYCHAN(nick, channel)	"473 " + nick + "#" + channel + " :Cannot join channel (+i)\r\n"
+#define ERR_INVITEONLYCHAN(channel)	"473 " + channel + " :Cannot join channel (+i)\r\n"
 
 // ? MODE
 #define ERR_UNKNOWNMODE(char)		(std::string("472 ") + (char) + " :is unknown mode char to me\r\n")

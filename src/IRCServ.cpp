@@ -65,8 +65,6 @@ IRCServ::~IRCServ()
 	close(_socket[0].fd);
 }
 
-// ! ajouter password
-// ! hexchat working
 void IRCServ::Start()
 {
 	std::cout << "\e[33m██╗██████╗  ██████╗    ███████╗███████╗██████╗ ██╗   ██╗" RESET << std::endl;
@@ -97,7 +95,6 @@ void IRCServ::Start()
 	std::cout << "Server end" << std::endl;
 }
 
-// ! ajouter message de bienvenue / messages d'arrivé
 void IRCServ::AddClient()
 {
 	int clientSocket = accept(_socket[0].fd, NULL, NULL);

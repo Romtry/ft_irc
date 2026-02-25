@@ -73,6 +73,13 @@ void IRCServ::Start()
 	std::cout << "\e[33m██║██╔══██╗██║         ╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝" RESET << std::endl;
 	std::cout << "\e[33m██║██║  ██║╚██████╗    ███████║███████╗██║  ██║ ╚████╔╝ " RESET << std::endl;
 	std::cout << "\e[33m╚═╝╚═╝  ╚═╝ ╚═════╝    ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  " RESET << std::endl;
+	Client *temp = new Client(-1);
+	_clients.push_back(temp);
+	_clients[0]->setNick("bot");
+	_clients[0]->setUser("bot");
+	_clients[0]->setPass(true);
+	_clients[0]->setIsRegister(true);
+
 	while (isrunning)
 	{
 		if (poll(_socket.data(), _socket.size(), 0) == -1)
@@ -119,33 +126,58 @@ void IRCServ::Message(const unsigned int i)
 		std::cout << "User disconnected" << std::endl;
 		close (_socket[i].fd);
 		_socket.erase(_socket.begin() + i);
-		while (!_clients[i - 1]->getChannels().empty())
+		while (!_clients[i]->getChannels().empty())
 		{
-			_clients[i - 1]->getChannels()[0]->removeMember(_clients[i - 1]);
-			ActuChan(_clients[i - 1]->getChannels()[0], _clients[i - 1], 0);
+			_clients[i]->getChannels()[0]->removeMember(_clients[i]);
+			ActuChan(_clients[i]->getChannels()[0], _clients[i], 0);
 		}
-		Client *tmp = _clients[i - 1];
-		_clients.erase(_clients.begin() + i - 1);
+		Client *tmp = _clients[i];
+		_clients.erase(_clients.begin() + i);
 		delete (tmp);
 		return;
 	}
 	std::string tmp = buffer;
-	parseCommand(_clients[i - 1], tmp);
+	parseCommand(_clients[i], tmp);
 }
 
 void IRCServ::ActuChan(const Channel *channel, Client *client, const unsigned int index_chan)
 {
 	if (channel->getClients().empty())
 	{
-		for (unsigned int i = 0; i < _channels.size(); ++i)
+		const int i = findChannel(channel);
+		if (i != -1)
 		{
-			if (_channels[i] == channel)
-			{
-				Channel *tmp = _channels[i];
-				_channels.erase(_channels.begin() + i);
-				delete (tmp);
-			}
+			Channel *tmp = _channels[i];
+			_channels.erase(_channels.begin() + i);
+			delete (tmp);
 		}
 	}
 	client->getChannels().erase(client->getChannels().begin() + index_chan);
+}
+
+Channel *IRCServ::findChannel(const std::string &chanName) const
+{
+	for (unsigned int i = 0; i < _channels.size(); ++i)
+	{
+		if (_channels[i]->getChanName() == chanName)
+			return (_channels[i]);
+	}
+	return (NULL);
+}
+
+
+int IRCServ::findChannel(const Channel *Channel) const
+{
+	for (unsigned int i = 0; i < _channels.size(); ++i)
+	{
+		if (_channels[i] == Channel)
+			return (static_cast<int>(i));
+	}
+	return (-1);
+}
+
+void IRCServ::nextArg(std::string &buffer)
+{
+	buffer.erase(0, buffer.find_first_of(' '));
+	buffer.erase(0, buffer.find_first_not_of(' '));
 }

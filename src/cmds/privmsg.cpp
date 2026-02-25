@@ -43,6 +43,14 @@ void IRCServ::CMDprivmsg(const Client *client, std::string &buffer) const
 	{
 		std::string nickname = buffer.substr(0, buffer.find_first_of(' '));
 		nextArg(buffer);
+		if (nickname == "bot")
+		{
+			if (buffer == "ping" || buffer == ":ping")
+				client->sendMessage(RAW_PRIVMSG(std::string("bot"), "nanachi", client->getNick(), "pong"));
+			else
+				client->sendMessage(RAW_PRIVMSG(std::string("bot"), "nanachi", client->getNick(), "send ping"));
+			return;
+		}
 		for (unsigned int i = 0; i < _clients.size(); ++i)
 		{
 			if (nickname == _clients[i]->getNick())

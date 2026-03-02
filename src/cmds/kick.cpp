@@ -36,6 +36,14 @@ void IRCServ::CMDkick(Client *client, std::string &buffer)
 				{
 					if (client->getChannels()[i]->getClients()[j]->getNick() == nick)
 					{
+						for (unsigned int k = 0; k < client->getChannels()[i]->getGuests().size(); ++k)
+						{
+							if (client->getChannels()[i]->getGuests()[k]->getNick() == nick)
+							{
+								client->getChannels()[i]->getGuests().erase(client->getChannels()[i]->getGuests().begin() + k);
+								break;
+							}
+						}
 						client->getChannels()[i]->sendAll(RPL_KICK(client->getNick(), nick, channelName, "got kicked"));
 						client->getChannels()[i]->removeMember(client->getChannels()[i]->getClients()[j]);
 						ActuChan(client->getChannels()[i], client->getChannels()[i]->getClients()[j], i);

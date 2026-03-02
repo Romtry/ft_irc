@@ -6,7 +6,7 @@
 /*   By: rdedola <rdedola@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/30 12:27:36 by rdedola           #+#    #+#             */
-/*   Updated: 2026/02/04 13:12:50 by rdedola          ###   ########.fr       */
+/*   Updated: 2026/03/02 10:50:55 by rdedola          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 
 #include "Client.hpp"
 #include "defines.hpp"
+#include "ansi.hpp"
 
 class Client;
 class Channel;

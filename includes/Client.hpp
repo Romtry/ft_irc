@@ -21,6 +21,7 @@ class Client
 {
 	private:
 		std::vector<std::string>	_token;
+		std::string					_buffer;
 		std::string 				_nick;
 		std::string 				_user;
 		bool 						_pass;
@@ -29,10 +30,11 @@ class Client
 		std::vector<Channel *>		_clientChannels;
 
 	public:
-		Client(const int fd) : _nick(""), _user(""), _pass(false), _isRegister(false), _clientsSocket(fd) {}
+		Client(const int fd) : _nick(""), _user(""), _pass(false), _isRegister(false), _clientsSocket(fd)  {}
 		~Client() {}
 
 		std::string					&getTokens(const unsigned int i) {return (_token[i]);};
+		std::string					&getBuffer() {return (_buffer);};
 		const std::string			&getNick() const {return (_nick);}
 		const std::string 			&getUser() const {return (_user);}
 		bool						getPass() const {return (_pass);}
@@ -43,6 +45,7 @@ class Client
 
 		void	addChannel(Channel *c) {_clientChannels.push_back(c);};
 
+		void	setBuffer(const std::string &buffer) {_buffer = buffer;};
 		void	setNick(const std::string &nick) {_nick = nick;}
 		void	setUser(const std::string &user) {_user = user;}
 		void	setPass(const bool pass) {_pass = pass;}

@@ -111,8 +111,10 @@ void IRCServ::AddClient()
 	clientfds.fd = clientSocket;
 	clientfds.events = POLLIN;
 	clientfds.revents = 0;
+
 	_socket.push_back(clientfds);
 	Client *temp = new Client(clientSocket);
+	temp->setBuffer("");
 	_clients.push_back(temp);
 	std::cout << "CLIENT HAS JOIN" << std::endl;
 }
@@ -136,7 +138,14 @@ void IRCServ::Message(const unsigned int i)
 		delete (tmp);
 		return;
 	}
-	std::string tmp = buffer;
+	std::string tmp = _clients[i]->getBuffer();
+	tmp += buffer;
+	if (tmp.find("\n") == std::string::npos)
+	{
+		_clients[i]->setBuffer(tmp);
+		return;
+	}
+	_clients[i]->setBuffer("");
 	parseCommand(_clients[i], tmp);
 }
 
